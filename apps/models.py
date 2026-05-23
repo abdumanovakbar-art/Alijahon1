@@ -1,0 +1,76 @@
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractUser, UserManager
+from django.db import models
+from django.db.models import CharField, DecimalField, Model, CASCADE, ForeignKey, ImageField, TextField, DateTimeField
+
+
+class CustomUserManager(UserManager):
+
+    def _create_user_object(self,  phone, password, **extra_fields):
+        if not phone:
+            raise ValueError("The given phone must be set")
+        phone = self.normalize_phone(phone)
+        user = self.model(phone=phone, **extra_fields)
+        user.password = make_password(password)
+        return user
+
+    def _create_user(self,phone, password, **extra_fields):
+        """
+        Create and save a user with the given  phone, and password.
+        """
+        user = self._create_user_object( phone, password, **extra_fields)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, phone=None, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_superuser", False)
+        return self._create_user(phone, password, **extra_fields)
+
+    def create_superuser(self, phone=None, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
+
+        return self._create_user(phone, password, **extra_fields)
+
+
+class User(AbstractUser):
+    username = None
+    USERNAME_FIELD = 'phone'
+    REQUIRED_FIELDS = []
+    objects = CustomUserManager()
+    phone = CharField(unique=True, max_length=20)
+    balance = DecimalField(max_digits=10, decimal_places=0, default=0)
+    coins = DecimalField(max_digits=10, decimal_places=0, default=0)
+    api_key = models.CharField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Category(Model):
+    title = CharField(max_length=255)
+    logo = CharField(max_length=255)
+
+
+class Product(Model):
+    title = CharField(max_length=50)
+    price = DecimalField(max_digits=10, decimal_places=0)
+    category = ForeignKey('apps.Category', on_delete=CASCADE, related_name='products')
+    description = TextField()
+
+
+class Order(Model):
+    first_name = CharField(max_length=50)
+    phone_number = CharField(max_length=20)
+    product_amount = DecimalField(max_digits=10, decimal_places=0)
+    product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='product_orders')
+    user = ForeignKey('apps.User', on_delete=CASCADE, related_name='user_orders')
+    created_at = DateTimeField(auto_now_add=True)
+
+class Image(Model):
+    product = ForeignKey('apps.Product', on_delete=CASCADE, related_name='images')
+    product_image = ImageField(upload_to='products/')

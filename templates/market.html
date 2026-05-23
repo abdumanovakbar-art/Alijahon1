@@ -1,0 +1,3592 @@
+{% load static %}
+
+<html lang="uz"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href=" {% static 'admin_market/fav-icon.png' %} ">
+    <!-- Bootstrap core CSS -->
+    <link href=" {% static 'admin_market/bootstrap.min.css' %} " rel="stylesheet">
+    <!-- Font Awesome-->
+    <link href=" {% static 'admin_market/all.min.css' %} " rel="stylesheet">
+    <link href=" {% static 'admin_market/icofont.min.css' %} " rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href=" {% static 'admin_market/style.css' %} " rel="stylesheet">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href=" {% static 'admin_market/owl.carousel.css' %} ">
+    <link rel="stylesheet" href=" {% static 'admin_market/owl.theme.css' %} ">
+    <link rel="manifest" href=" {% static 'admin_market/manifest.json' %} ">
+
+    <!-- Modern UI Styles -->
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #818cf8;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #3b82f6;
+            --dark-bg: #1e293b;
+            --light-bg: #f8fafc;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-4px);
+        }
+
+        .btn {
+            border-radius: 12px;
+            padding: 10px 24px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            padding: 12px 16px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .table {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .card {
+                margin-bottom: 20px;
+            }
+
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .table {
+                font-size: 12px;
+            }
+
+            .col-md-3, .col-md-9 {
+                padding: 0 10px;
+            }
+        }
+    </style>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register(' {% static 'admin_market/sw.js' %} ')
+                .then(function (reg) {
+                    console.log("Service Worker ro'yxatdan o'tdi!", reg);
+                })
+                .catch(function (err) {
+                    console.log("Service Worker xatosi!", err);
+                });
+        }
+    </script>
+
+
+    <style>
+        .market-container {
+            padding: 30px 0;
+        }
+
+        .market-header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .market-header h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .category-tabs::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .category-tabs::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .category-btn {
+            padding: 10px 24px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #64748b;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+        }
+
+        .search-box-modern {
+            position: relative;
+        }
+
+        .search-box-modern input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 30px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box-modern input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        .search-box-modern button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-box-modern button:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .product-card-modern {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card-modern:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card-modern:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .product-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-title a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .product-title a:hover {
+            color: #667eea;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 16px;
+        }
+
+        .product-details {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+            flex: 1;
+        }
+
+        .product-details li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .product-details li:last-child {
+            border-bottom: none;
+        }
+
+        .product-details li span:first-child {
+            color: #64748b;
+        }
+
+        .product-details li strong {
+            color: #1e293b;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+            flex-direction: column;
+        }
+
+        .product-btn {
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .product-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .product-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .product-btn.secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .product-btn.secondary:hover {
+            background: #e2e8f0;
+            color: #334155;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .market-container {
+                padding: 15px 0;
+            }
+
+            .market-header {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .market-header h3 {
+                font-size: 22px;
+            }
+
+            .category-tabs {
+                gap: 8px;
+            }
+
+            .category-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .product-image {
+                height: 180px;
+            }
+
+            .product-body {
+                padding: 16px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+
+
+<style>
+    .modern-header {
+        background: white;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .modern-navbar {
+        padding: 0;
+    }
+
+    .navbar-brand-modern {
+        padding: 12px 0;
+    }
+
+    .navbar-brand-modern img {
+        height: 45px;
+        width: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-brand-modern:hover img {
+        transform: scale(1.05);
+    }
+
+    .nav-link-modern {
+        padding: 20px 16px !important;
+        font-weight: 600;
+        color: #475569 !important;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .nav-item.dropdown.mega-menu {
+        position: static;
+    }
+
+    .nav-item.dropdown.profile-dropdown-nav {
+        position: relative;
+    }
+
+    .nav-link-modern::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 3px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: width 0.3s ease;
+    }
+
+    .nav-link-modern:hover,
+    .nav-link-modern.active {
+        color: #667eea !important;
+    }
+
+    .nav-link-modern:hover::after {
+        width: 80%;
+    }
+
+    .search-box-header {
+        position: relative;
+        width: 400px;
+        max-width: 100%;
+    }
+
+    .search-box-header input {
+        width: 100%;
+        padding: 10px 45px 10px 20px;
+        border: 2px solid #e2e8f0;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+    }
+
+    .search-box-header input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        outline: none;
+    }
+
+    .search-box-header button {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        color: white;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-dropdown-modern {
+        border-radius: 16px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        border: none !important;
+        padding: 8px 0;
+        margin-top: 10px;
+        min-width: 250px;
+        right: 0 !important;
+        left: auto !important;
+    }
+
+    .dropdown-item-modern {
+        padding: 12px 24px;
+        font-weight: 500;
+        color: #475569;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .dropdown-item-modern i {
+        width: 20px;
+        font-size: 18px;
+        color: #667eea;
+    }
+
+    .dropdown-item-modern:hover {
+        background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+        color: #667eea;
+    }
+
+    .profile-pic-modern {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: 2px solid #667eea;
+        object-fit: cover;
+    }
+
+    .mega-dropdown-modern {
+        border-radius: 16px !important;
+        border: none !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        padding: 30px 20px !important;
+        margin-top: 10px !important;
+        width: 90% !important;
+        max-width: 1200px !important;
+        left: 5% !important;
+        right: 5% !important;
+    }
+
+    .mega-list-modern {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .mega-list-modern a {
+        padding: 8px 12px;
+        color: #475569;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-size: 13px;
+        white-space: nowrap;
+        display: block;
+    }
+
+    .mega-list-modern a:hover {
+        background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+        color: #667eea;
+        transform: translateX(4px);
+    }
+
+    .dropdown-toggle::after {
+        display: none;
+    }
+
+    .navbar-toggler-modern {
+        border: 2px solid #667eea;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    @media (max-width: 992px) {
+        .search-box-header {
+            width: 100%;
+            margin: 16px 0;
+        }
+
+        .nav-link-modern {
+            padding: 12px 16px !important;
+        }
+
+        .nav-link-modern::after {
+            display: none;
+        }
+
+        .mega-dropdown-modern {
+            min-width: 100% !important;
+            left: 0 !important;
+            transform: none !important;
+            padding: 16px !important;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .mega-dropdown-modern .row {
+            flex-direction: column;
+        }
+
+        .mega-dropdown-modern .col-lg-2 {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="modern-header">
+    <nav class="navbar navbar-expand-lg navbar-light modern-navbar">
+        <div class="container">
+            <a class="navbar-brand navbar-brand-modern" href="/">
+                <img src=" {% static 'admin_market/alijahon.png' %} " alt="Alijahon.uz">
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-modern" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-modern" href="/">
+                            <i class="icofont-ui-home"></i> Bosh sahifa
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown mega-menu">
+                        <a class="nav-link nav-link-modern dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="icofont-list"></i> Kategoriyalar
+                        </a>
+                        <div class="dropdown-menu mega-dropdown-modern">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <div class="mega-list-modern">
+
+                                        <a href="/category/uy-uchun">
+                                            Uy ruzg'or uchun maxsulotlar
+                                        </a>
+
+                                        <a href="/category/bolalar-uchun">
+                                            Bolalar uchun maxsulotlar
+                                        </a>
+
+                                        <a href="/category/sovga">
+                                            Sovg'alar
+                                        </a>
+
+                                        <a href="/category/ayollar">
+                                            Ayollar uchun maxsulotlar
+                                        </a>
+
+                                        <a href="/category/davolovchi-mahsulotlar">
+                                            Davolovchi mahsulotlar
+                                        </a>
+
+                                        <a href="/category/erkaklar-uchun">
+                                            Erkaklar uchun maxsulotlar
+                                        </a>
+
+                                        <a href="/category/fitnes">
+                                            Fitnes trenajorlar
+                                        </a>
+
+                                        <a href="/category/davolovchi-mazlar">
+                                            Davolovchi mazlar
+                                        </a>
+
+                                        <a href="/category/moshina-uchun">
+                                            Moshina uchun
+                                        </a>
+
+                                        <a href="/category/kitoblar">
+                                            Kitoblar
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <div class="mega-list-modern">
+
+                                        <a href="/category/aqlli-soatlar">
+                                            soatlar
+                                        </a>
+
+                                        <a href="/category/atir">
+                                            Atirlar
+                                        </a>
+
+                                        <a href="/category/yangi-yel-maxsulotlari">
+                                            Yangi yil  maxsulotlari
+                                        </a>
+
+                                        <a href="/category/eliktironika">
+                                            Elektironika
+                                        </a>
+
+                                        <a href="/category/kozoynaklar">
+                                            Kozoynaklar
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <div class="mega-list-modern">
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <div class="mega-list-modern">
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <div class="mega-list-modern">
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <div class="mega-list-modern">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-modern" href="/category">
+                            <i class="icofont-shopping-cart"></i> Do'kon
+                        </a>
+                    </li>
+                </ul>
+
+                <form action="/search" method="POST" class="search-box-header" autocomplete="off">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="8aZD61a2KcWViha9FGhMaIdKjYAMpdvKI8QcTSj7FUO4Sv0pTCmvpJrwTMPp7NRH">
+                    <input id="search-input" name="product" type="search" placeholder="Mahsulot qidirish...">
+                    <button type="submit">
+                        <i class="icofont-search"></i>
+                    </button>
+                </form>
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown profile-dropdown-nav">
+                        <a class="nav-link nav-link-modern dropdown-toggle" href="#" data-toggle="dropdown">
+                            <img src="/media/img/nouser.png" alt="" class="profile-pic-modern">
+                            <span class="ml-2"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown-modern">
+
+
+
+
+
+
+
+
+
+
+
+                            <a class="dropdown-item dropdown-item-modern" href="/admin_page">
+                                <i class="icofont-ui-user"></i>
+                                <span>Mening kabinetim</span>
+                            </a>
+
+
+                            <div class="dropdown-divider" style="margin: 8px 0;"></div>
+
+                            <a class="dropdown-item dropdown-item-modern" href="/profile/logout">
+                                <i class="icofont-logout"></i>
+                                <span>Chiqish</span>
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+<div class="container market-container">
+    <div class="row">
+
+
+        <style>
+            .sidebar-modern {
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+                overflow: hidden;
+                position: sticky;
+                top: 20px;
+            }
+
+            .user-profile-modern {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 30px 20px;
+                text-align: center;
+                position: relative;
+            }
+
+            .user-profile-modern::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                opacity: 0.4;
+            }
+
+            .user-avatar-modern {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                border: 4px solid white;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+                object-fit: cover;
+                position: relative;
+                z-index: 1;
+            }
+
+            .user-info-modern {
+                color: white;
+                margin-top: 15px;
+                position: relative;
+                z-index: 1;
+            }
+
+            .user-info-modern h6 {
+                font-size: 18px;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+
+            .user-info-modern p {
+                font-size: 13px;
+                opacity: 0.95;
+                margin-bottom: 4px;
+            }
+
+            .nav-modern {
+                padding: 10px 0;
+            }
+
+            .nav-modern .nav-item {
+                margin: 0;
+            }
+
+            .nav-modern .nav-link {
+                color: #64748b;
+                padding: 14px 24px;
+                display: flex;
+                align-items: center;
+                font-weight: 500;
+                font-size: 15px;
+                border-left: 3px solid transparent;
+                transition: all 0.3s ease;
+            }
+
+            .nav-modern .nav-link i {
+                font-size: 20px;
+                margin-right: 12px;
+                width: 24px;
+                text-align: center;
+            }
+
+            .nav-modern .nav-link:hover,
+            .nav-modern .nav-link.active {
+                background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+                color: #667eea;
+                border-left-color: #667eea;
+            }
+
+            @media (max-width: 768px) {
+                .sidebar-modern {
+                    margin-bottom: 20px;
+                    position: static;
+                }
+
+                .user-profile-modern {
+                    padding: 20px 15px;
+                }
+
+                .user-avatar-modern {
+                    width: 80px;
+                    height: 80px;
+                }
+
+                .user-info-modern h6 {
+                    font-size: 16px;
+                }
+
+                .user-info-modern p {
+                    font-size: 12px;
+                }
+
+                .nav-modern .nav-link {
+                    padding: 12px 20px;
+                    font-size: 14px;
+                }
+
+                .nav-modern .nav-link i {
+                    font-size: 18px;
+                    margin-right: 10px;
+                }
+            }
+        </style>
+
+        <div class="col-md-3 mb-4">
+            <div class="sidebar-modern">
+                <div class="user-profile-modern">
+                    <img class="user-avatar-modern" src="/media/img/nouser.png" alt="">
+                    <div class="user-info-modern">
+                        <h6></h6>
+                        <p>+998950989950</p>
+                        <p></p>
+                    </div>
+                </div>
+                <ul class="nav nav-modern flex-column" id="myTab" role="tablist">
+
+                    <li class="nav-item">
+                        <a href="/admin_page" class="nav-link " role="tab">
+                            <i class="icofont-ui-user"></i>
+                            <span>Mening kabinetim</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin_page/market">
+                            <i class="icofont-shopping-cart"></i>
+                            <span>Market</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin_page/requests" class="nav-link ">
+                            <i class="icofont-list"></i>
+                            <span>So'rovnomalar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin_page/urls">
+                            <i class="icofont-link"></i>
+                            <span>Havolalar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin_page/stats" class="nav-link ">
+                            <i class="icofont-chart-bar-graph"></i>
+                            <span>Statistika</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin_page/competition">
+                            <i class="icofont-trophy-alt"></i>
+                            <span>Konkurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin_page/withdraw">
+                            <i class="icofont-money"></i>
+                            <span>To'lov</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/profile/referral">
+                            <i class="icofont-users-alt-4"></i>
+                            <span>Referal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/profile/settings">
+                            <i class="icofont-ui-settings"></i>
+                            <span>Sozlamalar</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <!-- Modal -->
+            <div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" style="border-radius: 20px; border: none;">
+                        <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 20px 20px 0 0;">
+                            <h5 class="modal-title">
+                                <i class="icofont-link"></i> Oqim yaratish
+                            </h5>
+                            <button type="button" class="close text-white" data-dismiss="modal">
+                                <span>×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="padding: 30px;">
+                            <form method="POST" class="form-class">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="8aZD61a2KcWViha9FGhMaIdKjYAMpdvKI8QcTSj7FUO4Sv0pTCmvpJrwTMPp7NRH">
+                                <input name="product_id" type="hidden" id="hidden_product" value="">
+
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold">Oqim nomi</label>
+                                    <input type="text" name="title" class="form-control" placeholder="" mt-2="Oqim uchun nom kiriting" required="" id="id_title">
+
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold">Chegirma</label>
+                                    <input type="number" name="discount" class="form-control" placeholder="" mt-2="Chegirma miqdori: {{ product.benefit }} so'mgacha" id="id_discount">
+
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100 mt-3" style="padding: 12px; border-radius: 12px;">
+                                    <i class="icofont-check"></i> Oqim yaratish
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="market-header">
+                <h3>
+                    <i class="icofont-shopping-cart"></i> Sotuvdagi Mahsulotlar
+                </h3>
+
+                <div class="category-tabs">
+                    <a href="/admin_page/market" class="category-btn active">Hammasi</a>
+
+                    <a href="/admin_page/market/uy-uchun" class="category-btn">
+                        Uy ruzg'or uchun maxsulotlar
+                    </a>
+
+                    <a href="/admin_page/market/bolalar-uchun" class="category-btn">
+                        Bolalar uchun maxsulotlar
+                    </a>
+
+                    <a href="/admin_page/market/sovga" class="category-btn">
+                        Sovg'alar
+                    </a>
+
+                    <a href="/admin_page/market/ayollar" class="category-btn">
+                        Ayollar uchun maxsulotlar
+                    </a>
+
+                    <a href="/admin_page/market/davolovchi-mahsulotlar" class="category-btn">
+                        Davolovchi mahsulotlar
+                    </a>
+
+                    <a href="/admin_page/market/erkaklar-uchun" class="category-btn">
+                        Erkaklar uchun maxsulotlar
+                    </a>
+
+                    <a href="/admin_page/market/fitnes" class="category-btn">
+                        Fitnes trenajorlar
+                    </a>
+
+                    <a href="/admin_page/market/davolovchi-mazlar" class="category-btn">
+                        Davolovchi mazlar
+                    </a>
+
+                    <a href="/admin_page/market/moshina-uchun" class="category-btn">
+                        Moshina uchun
+                    </a>
+
+                    <a href="/admin_page/market/kitoblar" class="category-btn">
+                        Kitoblar
+                    </a>
+
+                    <a href="/admin_page/market/aqlli-soatlar" class="category-btn">
+                        soatlar
+                    </a>
+
+                    <a href="/admin_page/market/atir" class="category-btn">
+                        Atirlar
+                    </a>
+
+                    <a href="/admin_page/market/yangi-yel-maxsulotlari" class="category-btn">
+                        Yangi yil  maxsulotlari
+                    </a>
+
+                    <a href="/admin_page/market/eliktironika" class="category-btn">
+                        Elektironika
+                    </a>
+
+                    <a href="/admin_page/market/kozoynaklar" class="category-btn">
+                        Kozoynaklar
+                    </a>
+
+                </div>
+
+                <div class="search-box-modern">
+                    <form action="market" method="GET" autocomplete="off">
+                        <input id="search-input" name="q" class="search-input" type="search" placeholder="Mahsulot qidirish...">
+                        <button type="submit">
+                            <i class="icofont-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/2-talig-moshina-ventilyator" target="_blank">
+                                <img src="/media/products/2026/05/14/IMG_7283.jpeg" alt="2 talik moshina ventilyator">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/2-talig-moshina-ventilyator" target="_blank">
+                                    2 talik moshina ventilyator
+                                </a>
+                            </div>
+
+                            <div class="product-price">89&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>27&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>559 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="682">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/2-talig-moshina-ventilyator" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/ayollar-uchun-granula" target="_blank">
+                                <img src="/media/products/2026/05/12/IMG_7259.jpeg" alt="Ayollar uchun Granula">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/ayollar-uchun-granula" target="_blank">
+                                    Ayollar uchun Granula
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>33&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>640 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="681">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2540" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/ayollar-uchun-granula" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/tonalniy-stik-1" target="_blank">
+                                <img src="/media/products/2026/05/11/IMG_7237.webp" alt="Tonalniy Stik">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/tonalniy-stik-1" target="_blank">
+                                    Tonalniy Stik
+                                </a>
+                            </div>
+
+                            <div class="product-price">89&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>50&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>397 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="680">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2097" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/tonalniy-stik-1" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/frangarse-asvijitel" target="_blank">
+                                <img src="/media/products/2026/05/09/IMG_7223.jpeg" alt="Frangarse asvijitel">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/frangarse-asvijitel" target="_blank">
+                                    Frangarse asvijitel
+                                </a>
+                            </div>
+
+                            <div class="product-price">129&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>37&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>500 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="679">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/frangarse-asvijitel" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/baxtga-yullanma" target="_blank">
+                                <img src="/media/products/2026/05/07/IMG_7181.jpeg" alt="Baxtga yullanma">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/baxtga-yullanma" target="_blank">
+                                    Baxtga yullanma
+                                </a>
+                            </div>
+
+                            <div class="product-price">99&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>32&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>604 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="678">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2526" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/baxtga-yullanma" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/13-xil-5-gr-li-atrlar-tuplami" target="_blank">
+                                <img src="/media/products/2026/05/01/IMG_7108.jpeg" alt="13 xil 5 gramli  atrlar tuplami">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/13-xil-5-gr-li-atrlar-tuplami" target="_blank">
+                                    13 xil 5 gramli  atrlar tuplami
+                                </a>
+                            </div>
+
+                            <div class="product-price">99&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>35&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>615 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="677">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/13-xil-5-gr-li-atrlar-tuplami" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/osmali-shanoun" target="_blank">
+                                <img src="/media/products/2026/04/28/IMG_7081.webp" alt="Osmali shanpun">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/osmali-shanoun" target="_blank">
+                                    Osmali shanpun
+                                </a>
+                            </div>
+
+                            <div class="product-price">79&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>512 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="676">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2513" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/osmali-shanoun" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/elastic-firming-retinol" target="_blank">
+                                <img src="/media/products/2026/04/28/IMG_7079.jpeg" alt="Elastic firming retinol">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/elastic-firming-retinol" target="_blank">
+                                    Elastic firming retinol
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>556 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="675">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/elastic-firming-retinol" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/bolalar-uchun-mujizaviy-sharcha" target="_blank">
+                                <img src="/media/products/2026/04/26/IMG_7040.jpeg" alt="Bolalar uchun mujizaviy sharcha">
+                            </a>
+
+                            <span class="product-badge">1 + 1 = 3</span>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/bolalar-uchun-mujizaviy-sharcha" target="_blank">
+                                    Bolalar uchun mujizaviy sharcha
+                                </a>
+                            </div>
+
+                            <div class="product-price">59&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>2434 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="674">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2501" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/bolalar-uchun-mujizaviy-sharcha" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/keratin-soch-spreyi" target="_blank">
+                                <img src="/media/products/2026/04/25/IMG_7023.jpeg" alt="Keratin soch spreyi">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/keratin-soch-spreyi" target="_blank">
+                                    Keratin soch spreyi
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>33&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>910 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="673">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/keratin-soch-spreyi" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/nicotex" target="_blank">
+                                <img src="/media/products/2026/04/25/IMG_7018.jpeg" alt="Nicotex">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/nicotex" target="_blank">
+                                    Nicotex
+                                </a>
+                            </div>
+
+                            <div class="product-price">99&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>35&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>394 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="672">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/nicotex" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/self-foaming-oqartiruvchi-1-2" target="_blank">
+                                <img src="/media/products/2026/04/24/IMG_6576.jpeg" alt="SELF FOAMING oqartiruvchi">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/self-foaming-oqartiruvchi-1-2" target="_blank">
+                                    SELF FOAMING oqartiruvchi
+                                </a>
+                            </div>
+
+                            <div class="product-price">59&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>25&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>657 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="671">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2426" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/self-foaming-oqartiruvchi-1-2" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/varicose-crem" target="_blank">
+                                <img src="/media/products/2026/04/22/IMG_6979.jpeg" alt="Varicose crem">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/varicose-crem" target="_blank">
+                                    Varicose crem
+                                </a>
+                            </div>
+
+                            <div class="product-price">99&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>40&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>19089 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="670">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2485" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/varicose-crem" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/pheramone" target="_blank">
+                                <img src="/media/products/2026/04/20/IMG_6446.jpeg" alt="Pheramone">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/pheramone" target="_blank">
+                                    Pheramone
+                                </a>
+                            </div>
+
+                            <div class="product-price">59&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>20&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>217 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="669">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/pheramone" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/sevishganlar-uchun-vibratsiyasz-braslet" target="_blank">
+                                <img src="/media/products/2026/04/20/IMG_6963.jpeg" alt="Sevishganlar uchun vibratsiyasz braslet">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/sevishganlar-uchun-vibratsiyasz-braslet" target="_blank">
+                                    Sevishganlar uchun vibratsiyasz braslet
+                                </a>
+                            </div>
+
+                            <div class="product-price">75&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>40&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>72 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="668">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/sevishganlar-uchun-vibratsiyasz-braslet" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/trendagi-gentra" target="_blank">
+                                <img src="/media/products/2026/04/19/IMG_6952.webp" alt="Trendagi Gentra">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/trendagi-gentra" target="_blank">
+                                    Trendagi Gentra
+                                </a>
+                            </div>
+
+                            <div class="product-price">109&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>37&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>469 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="667">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2487" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/trendagi-gentra" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/magic-body-fermin-oil" target="_blank">
+                                <img src="/media/products/2026/04/19/IMG_6943.jpeg" alt="Magic Body Fermin Oil">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/magic-body-fermin-oil" target="_blank">
+                                    Magic Body Fermin Oil
+                                </a>
+                            </div>
+
+                            <div class="product-price">99&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>37&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>90 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="666">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2483" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/magic-body-fermin-oil" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/360-musiqali-moshina" target="_blank">
+                                <img src="/media/products/2026/04/19/IMG_6941.jpeg" alt="360 musiqali moshina">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/360-musiqali-moshina" target="_blank">
+                                    360 musiqali moshina
+                                </a>
+                            </div>
+
+                            <div class="product-price">99&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>37&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>598 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="665">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2480" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/360-musiqali-moshina" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/smart-vifi-camera" target="_blank">
+                                <img src="/media/products/2026/04/19/IMG_6933.jpeg" alt="Smart Vifi Camera">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/smart-vifi-camera" target="_blank">
+                                    Smart Vifi Camera
+                                </a>
+                            </div>
+
+                            <div class="product-price">89&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>27&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>578 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="664">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/smart-vifi-camera" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/feramon-49" target="_blank">
+                                <img src="/media/products/2026/04/19/IMG_6932.jpeg" alt="Feramon 49">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/feramon-49" target="_blank">
+                                    Feramon 49
+                                </a>
+                            </div>
+
+                            <div class="product-price">49&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>26&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>1993 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="663">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/feramon-49" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/li-9-bolajonlar-uchun" target="_blank">
+                                <img src="/media/products/2026/04/18/IMG_6914.jpeg" alt="Li 9 bolajonlar uchun">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/li-9-bolajonlar-uchun" target="_blank">
+                                    Li 9 bolajonlar uchun
+                                </a>
+                            </div>
+
+                            <div class="product-price">119&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>36&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>211 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="662">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2478" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/li-9-bolajonlar-uchun" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/soyali-quron-1" target="_blank">
+                                <img src="/media/products/2026/04/17/IMG_6872.jpeg" alt="Soyali Qur’on">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/soyali-quron-1" target="_blank">
+                                    Soyali Qur’on
+                                </a>
+                            </div>
+
+                            <div class="product-price">209&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>45&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>37 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="661">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2462" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/soyali-quron-1" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/soyali-quron" target="_blank">
+                                <img src="/media/products/2026/04/14/IMG_6872.jpeg" alt="Soyali Qur’on">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/soyali-quron" target="_blank">
+                                    Soyali Qur’on
+                                </a>
+                            </div>
+
+                            <div class="product-price">269&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>65&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>544 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="660">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2462" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/soyali-quron" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/pheromone-1-2" target="_blank">
+                                <img src="/media/products/2026/04/12/IMG_6543.jpeg" alt="Pheromone">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/pheromone-1-2" target="_blank">
+                                    Pheromone
+                                </a>
+                            </div>
+
+                            <div class="product-price">79&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>1553 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="654">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2406" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/pheromone-1-2" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/hamelyon-bmv" target="_blank">
+                                <img src="/media/products/2026/04/12/IMG_6837.jpeg" alt="Hamelyon bmv">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/hamelyon-bmv" target="_blank">
+                                    Hamelyon bmv
+                                </a>
+                            </div>
+
+                            <div class="product-price">79&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>33&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>748 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="653">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/hamelyon-bmv" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/excelen-dry" target="_blank">
+                                <img src="/media/products/2026/04/09/IMG_6777.jpeg" alt="Excelen DRY">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/excelen-dry" target="_blank">
+                                    Excelen DRY
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>90 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="652">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2428" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/excelen-dry" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/self-foaming-oqartiruvchi-1" target="_blank">
+                                <img src="/media/products/2026/03/28/IMG_6576.jpeg" alt="SELF FOAMING oqartiruvchi">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/self-foaming-oqartiruvchi-1" target="_blank">
+                                    SELF FOAMING oqartiruvchi
+                                </a>
+                            </div>
+
+                            <div class="product-price">99&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>43&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>1999 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="651">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2415" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/self-foaming-oqartiruvchi-1" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/devid-bekhem-kozoynagi" target="_blank">
+                                <img src="/media/products/2026/03/27/IMG_6588.jpeg" alt="Devid Bekhem kozoynagi">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/devid-bekhem-kozoynagi" target="_blank">
+                                    Devid Bekhem kozoynagi
+                                </a>
+                            </div>
+
+                            <div class="product-price">79&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>8965 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="650">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2417" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/devid-bekhem-kozoynagi" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/pheromone-1" target="_blank">
+                                <img src="/media/products/2026/05/03/IMG_6543.jpeg" alt="Pheromone">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/pheromone-1" target="_blank">
+                                    Pheromone
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>286 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="649">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2406" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/pheromone-1" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/jenskiy-sharik-18" target="_blank">
+                                <img src="/media/products/2026/03/26/IMG_6579.jpeg" alt="Jenskiy sharik 18+">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/jenskiy-sharik-18" target="_blank">
+                                    Jenskiy sharik 18+
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>424 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="648">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2416" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/jenskiy-sharik-18" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/self-foaming-oqartiruvchi" target="_blank">
+                                <img src="/media/products/2026/03/26/IMG_6576.jpeg" alt="SELF FOAMING oqartiruvchi">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/self-foaming-oqartiruvchi" target="_blank">
+                                    SELF FOAMING oqartiruvchi
+                                </a>
+                            </div>
+
+                            <div class="product-price">89&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>35&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>442 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="647">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2415" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/self-foaming-oqartiruvchi" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/excelen-dry-classic-1-2" target="_blank">
+                                <img src="/media/products/2026/03/17/IMG_6416_0Ebyenc.jpeg" alt="excelen DRY classic">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/excelen-dry-classic-1-2" target="_blank">
+                                    excelen DRY classic
+                                </a>
+                            </div>
+
+                            <div class="product-price">89&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>40&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>17885 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="646">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/excelen-dry-classic-1-2" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/moon-18" target="_blank">
+                                <img src="/media/products/2026/03/06/IMG_6154.jpeg" alt="MOON 18+">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/moon-18" target="_blank">
+                                    MOON 18+
+                                </a>
+                            </div>
+
+                            <div class="product-price">89&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>35&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>481 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="643">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2413" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/moon-18" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/sun-cream-spf50-pa-1" target="_blank">
+                                <img src="/media/products/2026/02/26/IMG_5968.jpeg" alt="Sun Cream SPF50+ PA++++">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/sun-cream-spf50-pa-1" target="_blank">
+                                    Sun Cream SPF50+ PA++++
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>174 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="642">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/sun-cream-spf50-pa-1" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/kinetik-qum-bolajonlar-uchun" target="_blank">
+                                <img src="/media/products/2026/02/19/IMG_5828.jpeg" alt="Kinetik qum bolajonlar uchun">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/kinetik-qum-bolajonlar-uchun" target="_blank">
+                                    Kinetik qum bolajonlar uchun
+                                </a>
+                            </div>
+
+                            <div class="product-price">89&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>35&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>19913 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="641">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2408" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/kinetik-qum-bolajonlar-uchun" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/4-talik-nabor-ayol-qzlarga" target="_blank">
+                                <img src="/media/products/2026/02/17/IMG_5750.jpeg" alt="4 talik nabor ayol qzlarga">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/4-talik-nabor-ayol-qzlarga" target="_blank">
+                                    4 talik nabor ayol qzlarga
+                                </a>
+                            </div>
+
+                            <div class="product-price">109&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>40&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>780 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="640">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2407" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/4-talik-nabor-ayol-qzlarga" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/pheromone" target="_blank">
+                                <img src="/media/products/2026/02/17/IMG_5772.jpeg" alt="Pheromone">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/pheromone" target="_blank">
+                                    Pheromone
+                                </a>
+                            </div>
+
+                            <div class="product-price">79&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>40&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>1441 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="639">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/pheromone" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/flexqw-shampun" target="_blank">
+                                <img src="/media/products/2026/02/15/IMG_5715.jpeg" alt="FLEXQW shampun">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/flexqw-shampun" target="_blank">
+                                    FLEXQW shampun
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>33&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>427 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="638">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2402" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/flexqw-shampun" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/sungi-ramazon" target="_blank">
+                                <img src="/media/products/2026/02/10/IMG_5623.jpeg" alt="Sungi Ramazon">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/sungi-ramazon" target="_blank">
+                                    Sungi Ramazon
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>28&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>377 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="637">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2395" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/sungi-ramazon" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/genger-be-venom" target="_blank">
+                                <img src="/media/products/2026/02/07/IMG_5584.jpeg" alt="Genger&amp; Be Venom">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/genger-be-venom" target="_blank">
+                                    Genger&amp; Be Venom
+                                </a>
+                            </div>
+
+                            <div class="product-price">79&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>33&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>518 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="635">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2393" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/genger-be-venom" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/bilaguzuk-oyat-al-kursiy" target="_blank">
+                                <img src="/media/products/2026/02/06/IMG_5552.jpeg" alt="Bilaguzuk Oyat al-Kursiy">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/bilaguzuk-oyat-al-kursiy" target="_blank">
+                                    Bilaguzuk Oyat al-Kursiy
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>1660 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="634">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2386" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/bilaguzuk-oyat-al-kursiy" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/xabibimiz-oramizda-bulsalar" target="_blank">
+                                <img src="/media/products/2026/02/04/IMG_5522.jpeg" alt="Xabibimiz oramizda bulsalar">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/xabibimiz-oramizda-bulsalar" target="_blank">
+                                    Xabibimiz oramizda bulsalar
+                                </a>
+                            </div>
+
+                            <div class="product-price">79&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>28&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>1756 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="633">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2380" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/xabibimiz-oramizda-bulsalar" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/professional-manikyur-nabor" target="_blank">
+                                <img src="/media/products/2026/02/04/IMG_5511.jpeg" alt="Professional manikyur nabor !!">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/professional-manikyur-nabor" target="_blank">
+                                    Professional manikyur nabor !!
+                                </a>
+                            </div>
+
+                            <div class="product-price">97&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>32&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>545 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="632">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2378" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/professional-manikyur-nabor" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/mini-guruch-nabor" target="_blank">
+                                <img src="/media/products/2026/01/28/IMG_5413.jpeg" alt="Mini guruch nabor">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/mini-guruch-nabor" target="_blank">
+                                    Mini guruch nabor
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>32&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>1758 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="631">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2374" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/mini-guruch-nabor" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/bswell" target="_blank">
+                                <img src="/media/products/2026/01/27/IMG_5368.jpeg" alt="SLIM BSWELL">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/bswell" target="_blank">
+                                    SLIM BSWELL
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>224 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="630">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="/product-detail/bswell" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/chechen-beard-derma-roler" target="_blank">
+                                <img src="/media/products/2026/01/27/IMG_5365.jpeg" alt="Chechen beard + derma roler">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/chechen-beard-derma-roler" target="_blank">
+                                    Chechen beard + derma roler
+                                </a>
+                            </div>
+
+                            <div class="product-price">79&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>19817 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="629">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2353" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/chechen-beard-derma-roler" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/herbal-oil" target="_blank">
+                                <img src="/media/products/2026/01/27/IMG_5363.jpeg" alt="Herbal Oil">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/herbal-oil" target="_blank">
+                                    Herbal Oil
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>19710 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="628">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2369" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/herbal-oil" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="/product-detail/papiloma-sprey" target="_blank">
+                                <img src="/media/products/2026/01/27/IMG_5361.jpeg" alt="Papiloma sprey">
+                            </a>
+
+                        </div>
+
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="/product-detail/papiloma-sprey" target="_blank">
+                                    Papiloma sprey
+                                </a>
+                            </div>
+
+                            <div class="product-price">69&nbsp;000 so'm</div>
+
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>30&nbsp;000 so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>2654 ta</strong>
+                                </li>
+                            </ul>
+
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal" data-toggle="modal" data-target="#edit-profile-modal" name="627">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+
+                                <a href="https://t.me/Alijahon_bot/2371" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-paper"></i> Reklama Posti
+                                </a>
+
+                                <a href="/product-detail/papiloma-sprey" target="_blank" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="mt-4">
+
+
+                <style>
+                    .pagination-modern {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 8px;
+                        flex-wrap: wrap;
+                        padding: 20px 0;
+                    }
+
+                    .pagination-modern .page-item {
+                        list-style: none;
+                    }
+
+                    .pagination-modern .page-link {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: 42px;
+                        height: 42px;
+                        padding: 0 16px;
+                        background: white;
+                        border: 2px solid #e2e8f0;
+                        border-radius: 12px;
+                        color: #475569;
+                        font-weight: 600;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                    }
+
+                    .pagination-modern .page-link:hover {
+                        background: #f8fafc;
+                        border-color: #667eea;
+                        color: #667eea;
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 6px -1px rgba(102, 126, 234, 0.2);
+                    }
+
+                    .pagination-modern .page-item.active .page-link {
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        border-color: transparent;
+                        color: white;
+                        cursor: default;
+                        pointer-events: none;
+                    }
+
+                    .pagination-modern .page-item.disabled .page-link {
+                        opacity: 0.5;
+                        cursor: not-allowed;
+                        pointer-events: none;
+                    }
+
+                    .pagination-modern .page-link.prev-next {
+                        padding: 0 20px;
+                    }
+
+                    .pagination-modern .page-link i {
+                        font-size: 16px;
+                    }
+
+                    @media (max-width: 768px) {
+                        .pagination-modern {
+                            gap: 6px;
+                            padding: 15px 0;
+                        }
+
+                        .pagination-modern .page-link {
+                            min-width: 38px;
+                            height: 38px;
+                            padding: 0 12px;
+                            font-size: 14px;
+                        }
+
+                        .pagination-modern .page-link.prev-next {
+                            padding: 0 14px;
+                        }
+                    }
+                </style>
+
+                <nav aria-label="Pagination">
+                    <ul class="pagination-modern">
+
+                        <li class="page-item disabled">
+                <span class="page-link prev-next">
+                    <i class="icofont-rounded-left"></i> Oldingisi
+                </span>
+                        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <li class="page-item active disabled">
+                            <a class="page-link" href="?page=1">1</a>
+                        </li>
+
+
+
+
+
+                        <li class="page-item ">
+                            <a class="page-link" href="?page=2">2</a>
+                        </li>
+
+
+
+
+
+                        <li class="page-item ">
+                            <a class="page-link" href="?page=3">3</a>
+                        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <li class="page-item">
+                            <a class="page-link prev-next" href="?page=2">
+                                Keyingisi <i class="icofont-rounded-right"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<style>
+    .modern-footer {
+        background: white;
+        border-top: 1px solid #e2e8f0;
+        padding: 0;
+        margin-top: 60px;
+    }
+
+    .footer-copyright {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 24px 0;
+        color: white;
+    }
+
+    .copyright-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .copyright-text {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .copyright-text a {
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .copyright-text a:hover {
+        opacity: 0.8;
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .footer-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+        .modern-footer {
+            margin-top: 40px;
+        }
+
+        .footer-copyright {
+            padding: 20px 0;
+        }
+
+        .copyright-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .footer-links {
+            justify-content: center;
+        }
+    }
+</style>
+
+<footer class="modern-footer">
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="copyright-content">
+                <p class="copyright-text">
+                    <a href="/">Alijahon.uz</a> © 2026 Barcha huquqlar himoyalangan
+                </p>
+                <div class="footer-links">
+                    <a href="/">Bosh sahifa</a>
+                    <a href="/category">Do'kon</a>
+                    <a href="#">Aloqa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src=" {% static 'admin_market/bootstrap.bundle.min.js' %} "></script>
+
+<!-- Custom scripts for all pages-->
+<script src=" {% static 'admin_market/custom.js' %} "></script>
+<!-- Contact form JavaScript -->
+<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+<script src=" {% static 'admin_market/jqBootstrapValidation.js' %} "></script>
+<script src=" {% static 'admin_market/contact_me.js' %} "></script>
+<!-- Owl Carousel -->
+<script src=" {% static 'admin_market/owl.carousel.js' %} "></script>
+
+
+<script>
+    $('.btn_open_modal').on('click', function () {
+        let product_id = $(this).attr('name');
+        $('#hidden_product').val(product_id);
+    })
+</script>
+
+
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;72b499923c304ca590d917e3955e9593&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+</body></html>
