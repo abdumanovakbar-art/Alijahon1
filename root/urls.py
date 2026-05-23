@@ -11,8 +11,8 @@ Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+    1. Import the include() function: from django.url_files import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.url_files'))
 """
 from django.contrib import admin
 from django.urls import path
@@ -24,4 +24,8 @@ urlpatterns = [
     path('home/shop/', ShopView.as_view(), name='shop'),
     path('home/account/', AccountView.as_view(), name='account'),
     path('home/account/market', AdminMarketView.as_view(), name='market'),
+    path('home/account/request', SorovTemplateView.as_view(), name='request'),
+    path('home/account/havolalar', HavolaTemplateView.as_view(), name='havolalar'),
+    path('home/account/stats', StatistikaTemplateView.as_view(), name='stats'),
+    path('home/account/konkurs', KonkursTemplateView.as_view(), name='konkurs'),
 ]

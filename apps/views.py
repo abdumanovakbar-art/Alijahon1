@@ -17,3 +17,15 @@ class AccountView(TemplateView):
 
 class AdminMarketView(TemplateView):
     template_name = 'market.html'
+
+class SorovTemplateView(TemplateView):
+    template_name = 'sorov.html'
+
+class HavolaTemplateView(TemplateView):
+    template_name = 'havolalar.html'
+
+class StatistikaTemplateView(TemplateView):
+    template_name = 'statistika.html'
+
+class KonkursTemplateView(TemplateView):
+    template_name = 'konkurs.html'
