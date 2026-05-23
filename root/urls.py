@@ -28,4 +28,6 @@ urlpatterns = [
     path('home/account/havolalar', HavolaTemplateView.as_view(), name='havolalar'),
     path('home/account/stats', StatistikaTemplateView.as_view(), name='stats'),
     path('home/account/konkurs', KonkursTemplateView.as_view(), name='konkurs'),
+    path('home/account/pay', PayTemplateView.as_view(), name='pay'),
+    path('home/account/referal', ReferalTemplateView.as_view(), name='referal'),
 ]

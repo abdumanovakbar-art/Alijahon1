@@ -29,3 +29,9 @@ class StatistikaTemplateView(TemplateView):
 
 class KonkursTemplateView(TemplateView):
     template_name = 'konkurs.html'
+
+class PayTemplateView(TemplateView):
+    template_name = 'pay.html'
+
+class ReferalTemplateView(TemplateView):
+    template_name = 'referal.html'
