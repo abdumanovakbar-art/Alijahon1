@@ -1,21 +1,23 @@
 {% load static %}
-<html lang="uz"><head>
+
+<html lang="uz">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title></title>
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href=" {% static 'withdraw_files/fav-icon.png' %} ">
+    <link rel="icon" type="image/png" href=" {% static 'settings_files/fav-icon.png' %} ">
     <!-- Bootstrap core CSS -->
-    <link href=" {% static 'withdraw_files/bootstrap.min.css' %} " rel="stylesheet">
+    <link href=" {% static 'settings_files/bootstrap.min.css' %} " rel="stylesheet">
     <!-- Font Awesome-->
-    <link href=" {% static 'withdraw_files/all.min.css' %} " rel="stylesheet">
-    <link href=" {% static 'withdraw_files/icofont.min.css' %} " rel="stylesheet">
+    <link href=" {% static 'settings_files/all.min.css' %} " rel="stylesheet">
+    <link href=" {% static 'settings_files/icofont.min.css' %} " rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href=" {% static 'withdraw_files/style.css' %} " rel="stylesheet">
+    <link href=" {% static 'settings_files/style.css' %} " rel="stylesheet">
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href=" {% static 'withdraw_files/owl.carousel.css' %} ">
-    <link rel="stylesheet" href=" {% static 'withdraw_files/owl.theme.css' %} ">
-    <link rel="manifest" href=" {% static 'withdraw_files/manifest.json' %} ">
+    <link rel="stylesheet" href=" {% static 'settings_files/owl.carousel.css' %} ">
+    <link rel="stylesheet" href=" {% static 'settings_files/owl.theme.css' %} ">
+    <link rel="manifest" href=" {% static 'settings_files/manifest.json' %} ">
 
     <!-- Modern UI Styles -->
     <style>
@@ -130,7 +132,7 @@
 
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register(' {% static 'withdraw_files/sw.js' %} ')
+            navigator.serviceWorker.register(' {% static 'settings_files/sw.js' %} ')
                 .then(function (reg) {
                     console.log("Service Worker ro'yxatdan o'tdi!", reg);
                 })
@@ -142,490 +144,129 @@
 
 
     <style>
-        .withdraw-container {
+        .settings-container {
             padding: 30px 0;
         }
 
-        .balance-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 24px;
+        .settings-card {
+            background: white;
+            border-radius: 20px;
             padding: 40px;
-            color: white;
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 30px;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .balance-card::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 300px;
-            height: 300px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 50%;
-        }
-
-        .balance-card::after {
-            content: '';
-            position: absolute;
-            bottom: -80px;
-            left: -80px;
-            width: 250px;
-            height: 250px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-        }
-
-        .balance-icon {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 60px;
-            opacity: 0.15;
-            z-index: 1;
-        }
-
-        .balance-card h5 {
-            font-size: 14px;
-            opacity: 0.85;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 2;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
-
-        .balance-amount {
-            font-size: 42px;
-            font-weight: 700;
-            position: relative;
-            z-index: 2;
-            margin-bottom: 0;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .withdraw-form-card {
-            background: white;
-            border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
+        }
+
+        .settings-header {
             margin-bottom: 30px;
-            border: 2px solid #f1f5f9;
-        }
-
-        .withdraw-form-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 24px 30px;
-            color: white;
-            position: relative;
-        }
-
-        .withdraw-form-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 50%;
-            transform: translate(40%, -40%);
-        }
-
-        .withdraw-form-header h5 {
-            margin: 0;
-            font-size: 20px;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
-        }
-
-        .withdraw-form-header h5 i {
-            margin-right: 8px;
-            font-size: 22px;
-        }
-
-        .tab-navigation {
-            display: flex;
-            background: #f8fafc;
-            padding: 8px;
-            gap: 8px;
-        }
-
-        .tab-button {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            background: transparent;
-            color: #64748b;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 12px;
-            font-size: 15px;
-        }
-
-        .tab-button i {
-            margin-right: 6px;
-        }
-
-        .tab-button.active {
-            background: white;
-            color: #667eea;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
-        }
-
-        .tab-button:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.5);
-            color: #667eea;
-        }
-
-        .tab-content-panel {
-            padding: 30px;
-        }
-
-        .form-group-modern {
-            margin-bottom: 20px;
-        }
-
-        .form-group-modern label {
-            display: block;
-            font-weight: 600;
-            color: #475569;
-            margin-bottom: 10px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group-modern input,
-        .form-group-modern select {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-group-modern input:focus,
-        .form-group-modern select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-            outline: none;
-        }
-
-        .submit-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 16px;
-            border-radius: 12px;
-            border: none;
-            font-weight: 700;
-            font-size: 16px;
-            width: 100%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .submit-button:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .submit-button:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
-        }
-
-        .submit-button:active:not(:disabled) {
-            transform: translateY(-1px);
-        }
-
-        .submit-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .submit-button i {
-            margin-right: 8px;
-            font-size: 18px;
-        }
-
-        .transactions-card {
-            background: white;
-            border-radius: 24px;
-            padding: 35px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            margin-top: 40px;
-            border: 2px solid #f1f5f9;
-        }
-
-        .transactions-header {
-            margin-bottom: 28px;
             padding-bottom: 20px;
-            border-bottom: 3px solid #f1f5f9;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            border-bottom: 2px solid #f1f5f9;
         }
 
-        .transactions-header h5 {
-            font-size: 24px;
+        .settings-header h3 {
+            font-size: 28px;
             font-weight: 700;
             color: #1e293b;
             margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .transactions-header h5 i {
-            font-size: 26px;
-            color: #667eea;
+        .settings-header p {
+            color: #64748b;
+            margin: 8px 0 0 0;
         }
 
-        .transactions-count {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h5 {
+            font-size: 18px;
             font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
         }
 
-        .transactions-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-
-        .transactions-table thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .transactions-table thead th {
-            color: white;
-            font-weight: 600;
-            padding: 16px;
-            text-align: left;
-            font-size: 14px;
-            border: none;
-        }
-
-        .transactions-table thead th:first-child {
-            border-radius: 12px 0 0 0;
-        }
-
-        .transactions-table thead th:last-child {
-            border-radius: 0 12px 0 0;
-        }
-
-        .transactions-table tbody tr {
-            transition: all 0.3s ease;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .transactions-table tbody tr:hover {
-            background: #f8fafc;
-        }
-
-        .transactions-table tbody td {
-            padding: 16px;
-            vertical-align: middle;
-        }
-
-        .status-badge-modern {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .status-badge-modern.warning {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-badge-modern.success {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-badge-modern.danger {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .pagination-container {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .pagination-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            min-width: 44px;
-            font-size: 14px;
-        }
-
-        .pagination-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-            color: white;
-        }
-
-        .pagination-info {
-            color: #667eea;
-            font-weight: 600;
-            padding: 10px 16px;
-            background: #f8fafc;
-            border-radius: 8px;
-            white-space: nowrap;
-            font-size: 14px;
-        }
-
-        .alert-modern {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            border-radius: 16px;
-            padding: 20px 24px;
+        .form-group {
             margin-bottom: 24px;
-            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.2);
         }
 
-        .alert-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .form-group label {
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 14px;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 15px;
+            background-color: #fff;
+            color: #212529;
+        }
+
+        select.form-control, select.form-select {
+            padding: 10px 40px 10px 14px !important;
+            border-radius: 10px !important;
+            height: auto !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            background-color: #fff !important;
+            color: #212529 !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23475569' d='M6 8L1 3h10z'/%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 14px center !important;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        select.form-control option {
+            background-color: #fff;
+            color: #212529;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            font-weight: 500;
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
 
-        .alert-content i {
-            font-size: 24px;
-            flex-shrink: 0;
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
         }
 
         @media (max-width: 768px) {
-            .withdraw-container {
+            .settings-container {
                 padding: 15px 0;
             }
 
-            .balance-card {
-                padding: 30px 24px;
-                margin-bottom: 20px;
-                min-height: 160px;
+            .settings-card {
+                padding: 24px;
             }
 
-            .balance-amount {
-                font-size: 32px;
+            .settings-header h3 {
+                font-size: 24px;
             }
 
-            .balance-icon {
-                font-size: 50px;
-                top: 20px;
-                right: 20px;
-            }
-
-            .withdraw-form-header {
-                padding: 20px;
-            }
-
-            .tab-content-panel {
-                padding: 20px;
-            }
-
-            .transactions-card {
-                padding: 20px;
-                overflow-x: auto;
-            }
-
-            .transactions-header {
-                gap: 8px;
-            }
-
-            .transactions-header h5 {
-                font-size: 18px;
-            }
-
-            .transactions-header h5 i {
-                font-size: 20px;
-            }
-
-            .transactions-count {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-
-            .transactions-table {
-                font-size: 12px;
-            }
-
-            .transactions-table thead th,
-            .transactions-table tbody td {
-                padding: 12px;
-                white-space: nowrap;
-            }
-
-            .pagination-container {
-                gap: 8px;
-                margin-top: 20px;
-            }
-
-            .pagination-btn {
-                padding: 8px 12px;
-                min-width: 40px;
-                font-size: 13px;
-            }
-
-            .pagination-info {
-                padding: 8px 12px;
-                font-size: 13px;
+            .btn-save {
+                width: 100%;
             }
         }
     </style>
 
 </head>
 <body>
-
 
 
 <style>
@@ -850,10 +491,11 @@
     <nav class="navbar navbar-expand-lg navbar-light modern-navbar">
         <div class="container">
             <a class="navbar-brand navbar-brand-modern" href="/">
-                <img src=" {% static 'withdraw_files/alijahon.png' %} " alt="Alijahon.uz">
+                <img src=" {% static 'settings_files/alijahon.png' %} " alt="Alijahon.uz">
             </a>
 
-            <button class="navbar-toggler navbar-toggler-modern" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
+            <button class="navbar-toggler navbar-toggler-modern" type="button" data-toggle="collapse"
+                    data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -927,7 +569,7 @@
                                         </a>
 
                                         <a href="/category/yangi-yel-maxsulotlari">
-                                            Yangi yil  maxsulotlari
+                                            Yangi yil maxsulotlari
                                         </a>
 
                                         <a href="/category/eliktironika">
@@ -971,7 +613,8 @@
                 </ul>
 
                 <form action="/search" method="POST" class="search-box-header" autocomplete="off">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
+                    <input type="hidden" name="csrfmiddlewaretoken"
+                           value="JyxBVPGc4cYus2rNuNYax5zY98B4igRdjwoaIGPhZUQD2gh3IJ3TM6NKJWQH0Qda">
                     <input id="search-input" name="product" type="search" placeholder="Mahsulot qidirish...">
                     <button type="submit">
                         <i class="icofont-search"></i>
@@ -986,15 +629,6 @@
                             <span class="ml-2"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown-modern">
-
-
-
-
-
-
-
-
-
 
 
                             <a class="dropdown-item dropdown-item-modern" href="/admin_page">
@@ -1019,8 +653,7 @@
 </div>
 
 
-
-<div class="container withdraw-container">
+<div class="container settings-container">
     <div class="row">
 
 
@@ -1200,7 +833,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/admin_page/withdraw">
+                        <a class="nav-link " href="/admin_page/withdraw">
                             <i class="icofont-money"></i>
                             <span>To'lov</span>
                         </a>
@@ -1212,7 +845,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="/profile/settings">
+                        <a class="nav-link active" href="/profile/settings">
                             <i class="icofont-ui-settings"></i>
                             <span>Sozlamalar</span>
                         </a>
@@ -1221,143 +854,209 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="balance-card">
-                        <i class="icofont-wallet balance-icon"></i>
-                        <h5>Mening Hisobim</h5>
-                        <div class="balance-amount">0 so'm</div>
-                    </div>
 
 
+            <!-- Profil ma'lumotlari -->
+            <div class="settings-card mb-4">
+                <div class="settings-header">
+                    <h3>Sozlamalar</h3>
+                    <p>Profil ma'lumotlaringizni tahrirlang</p>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="withdraw-form-card">
-                        <div class="withdraw-form-header">
-                            <h5>
-                                <i class="icofont-money"></i> Pul Yechish
-                            </h5>
+                <form method="post" enctype="multipart/form-data" novalidate="">
+                    <input type="hidden" name="csrfmiddlewaretoken"
+                           value="JyxBVPGc4cYus2rNuNYax5zY98B4igRdjwoaIGPhZUQD2gh3IJ3TM6NKJWQH0Qda">
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_first_name">Ism</label>
+                                <input type="text" name="first_name" id="id_first_name" class="form-control " value="">
+
+                            </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_last_name">Familiya</label>
+                                <input type="text" name="last_name" id="id_last_name" class="form-control " value="">
 
-                        <div class="tab-navigation">
-                            <button class="tab-button active" id="money-tab" onclick="switchTab('money')">
-                                <i class="icofont-cur-dollar"></i> Pul
-                            </button>
-                            <button class="tab-button" id="coin-tab" onclick="switchTab('coin')">
-                                <i class="icofont-coins"></i> Tanga
-                            </button>
-                        </div>
-
-                        <div class="tab-content-panel" id="money-panel">
-                            <form class="payment-form" method="post">
-                                <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
-
-                                <div class="form-group-modern">
-                                    <label>Karta raqami</label>
-                                    <input type="text" name="card_number" class="form-control" placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required="" id="id_card_number">
-
-                                </div>
-
-                                <div class="form-group-modern">
-                                    <label>Amount</label>
-                                    <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting" required="" id="id_amount">
-
-                                </div>
-
-                                <div class="form-group-modern">
-                                    <label></label>
-                                    <select name="type" class="form-control class-type" style="display: none;" id="id_type">
-                                        <option value="coin">Tanga</option>
-
-                                        <option value="money" selected="">Pul</option>
-
-                                    </select>
-
-                                </div>
-
-                                <button type="submit" class="submit-button submit-btn">
-                                    <i class="icofont-check"></i> Tasdiqlash
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="tab-content-panel" id="coin-panel" style="display: none;">
-                            <form class="payment-form" method="post">
-                                <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
-
-                                <div class="form-group-modern">
-                                    <label>Karta raqami</label>
-                                    <input type="text" name="card_number" class="form-control" placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required="" id="id_card_number">
-
-                                </div>
-
-                                <div class="form-group-modern">
-                                    <label>Amount</label>
-                                    <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting" required="" id="id_amount">
-
-                                </div>
-
-                                <div class="form-group-modern">
-                                    <label></label>
-                                    <select name="type" class="form-control class-type" style="display: none;" id="id_type">
-                                        <option value="coin">Tanga</option>
-
-                                        <option value="money" selected="">Pul</option>
-
-                                    </select>
-
-                                </div>
-
-                                <button type="submit" class="submit-button submit-btn">
-                                    <i class="icofont-check"></i> Tasdiqlash
-                                </button>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_region">Viloyat</label>
+                                <select name="region" id="id_region" class="form-control ">
+                                    <option value="">Viloyatni tanlang</option>
+
+                                    <option value="1">
+                                        Qoraqalpog'iston
+                                    </option>
+
+                                    <option value="2">
+                                        Xorazm
+                                    </option>
+
+                                    <option value="3">
+                                        Navoiy
+                                    </option>
+
+                                    <option value="4">
+                                        Buxoro
+                                    </option>
+
+                                    <option value="5">
+                                        Samarqand
+                                    </option>
+
+                                    <option value="6">
+                                        Qashqadaryo
+                                    </option>
+
+                                    <option value="7">
+                                        Surxondaryo
+                                    </option>
+
+                                    <option value="8">
+                                        Jizzax
+                                    </option>
+
+                                    <option value="9">
+                                        Sirdaryo
+                                    </option>
+
+                                    <option value="10">
+                                        Toshkent viloyati
+                                    </option>
+
+                                    <option value="11">
+                                        Namangan
+                                    </option>
+
+                                    <option value="12">
+                                        Farg'ona
+                                    </option>
+
+                                    <option value="13">
+                                        Andijon
+                                    </option>
+
+                                    <option value="14">
+                                        Toshkent shahar
+                                    </option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_district">Tuman / Shahar</label>
+                                <select name="city" id="id_district" class="form-control ">
+                                    <option value="">Tumanni tanlang</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_telegram_id">Telegram ID</label>
+                        <input type="text" name="telegram_id" id="id_telegram_id" class="form-control " value="">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_description">Haqida</label>
+                        <textarea name="description" id="id_description" rows="3" class="form-control "></textarea>
+
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-save">
+                            <i class="icofont-save"></i> Saqlash
+                        </button>
+                    </div>
+                </form>
             </div>
 
-            <div class="transactions-card">
-                <div class="transactions-header">
-                    <h5>
-                        <i class="icofont-history"></i>
-                        <span>O'tkazmalar Tarixi</span>
-                    </h5>
-                    <span class="transactions-count">0 ta</span>
+            <!-- Parol almashtirish -->
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>Parolni o'zgartirish</h3>
+                    <p>Hisobingiz xavfsizligi uchun parolni muntazam yangilang</p>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="transactions-table">
-                        <thead>
-                        <tr>
-                            <th>Sana</th>
-                            <th>Hisob raqam</th>
-                            <th>Summa</th>
-                            <th>Holat</th>
-                            <th>Xabar</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                <form method="post" novalidate="">
+                    <input type="hidden" name="csrfmiddlewaretoken"
+                           value="JyxBVPGc4cYus2rNuNYax5zY98B4igRdjwoaIGPhZUQD2gh3IJ3TM6NKJWQH0Qda">
+                    <input type="hidden" name="_password_change" value="1">
 
-                        <tr>
-                            <td colspan="5" style="text-align: center; padding: 40px; color: #64748b;">
-                                <i class="icofont-history" style="font-size: 48px; display: block; margin-bottom: 16px;"></i>
-                                <strong>Hozircha pul yechish so'rovlari mavjud emas</strong>
-                            </td>
-                        </tr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_new_password">Yangi parol</label>
+                                <input type="password" name="new_password" id="id_new_password" class="form-control"
+                                       placeholder="Yangi parol (kamida 6 belgi)">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="id_confirm_password">Yangi parolni tasdiqlang</label>
+                                <input type="password" name="confirm_password" id="id_confirm_password"
+                                       class="form-control" placeholder="Yangi parolni qayta kiriting">
+                            </div>
+                        </div>
+                    </div>
 
-                        </tbody>
-                    </table>
-                </div>
-
-
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-save">
+                            <i class="icofont-key"></i> Parolni o'zgartirish
+                        </button>
+                    </div>
+                </form>
             </div>
+
         </div>
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const regionSelect = document.getElementById('id_region');
+        const districtSelect = document.getElementById('id_district');
+        const currentCity = "";
 
+        regionSelect.addEventListener('change', function () {
+            const regionId = this.value;
+            districtSelect.innerHTML = '<option value="">Yuklanmoqda...</option>';
+
+            if (!regionId) {
+                districtSelect.innerHTML = '<option value="">Tumanni tanlang</option>';
+                return;
+            }
+
+            fetch(`/get-districts/${regionId}/`)
+                .then(res => res.json())
+                .then(data => {
+                    districtSelect.innerHTML = '<option value="">Tumanni tanlang</option>';
+                    data.districts.forEach(function (d) {
+                        const opt = document.createElement('option');
+                        opt.value = d.name;
+                        opt.textContent = d.name;
+                        districtSelect.appendChild(opt);
+                    });
+                })
+                .catch(() => {
+                    districtSelect.innerHTML = '<option value="">Xatolik yuz berdi</option>';
+                });
+        });
+    });
+</script>
 
 
 <style>
@@ -1454,60 +1153,23 @@
 
 <!-- Bootstrap core JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src=" {% static 'withdraw_files/bootstrap.bundle.min.js' %} "></script>
+<script src=" {% static 'settings_files/bootstrap.bundle.min.js' %} "></script>
 
 <!-- Custom scripts for all pages-->
-<script src=" {% static 'withdraw_files/custom.js' %} "></script>
+<script src=" {% static 'settings_files/custom.js' %} "></script>
 <!-- Contact form JavaScript -->
 <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-<script src=" {% static 'withdraw_files/jqBootstrapValidation.js' %} "></script>
-<script src=" {% static 'withdraw_files/contact_me.js' %} "></script>
+<script src=" {% static 'settings_files/jqBootstrapValidation.js' %} "></script>
+<script src=" {% static 'settings_files/contact_me.js' %} "></script>
 <!-- Owl Carousel -->
-<script src=" {% static 'withdraw_files/owl.carousel.js' %} "></script>
+<script src=" {% static 'settings_files/owl.carousel.js' %} "></script>
 
 
-<script>
-    function switchTab(type) {
-        // Tab buttons
-        const moneyTab = document.getElementById('money-tab');
-        const coinTab = document.getElementById('coin-tab');
+<script defer=""
+        src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447"
+        integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ=="
+        data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;72b499923c304ca590d917e3955e9593&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}"
+        crossorigin="anonymous"></script>
 
-        // Tab panels
-        const moneyPanel = document.getElementById('money-panel');
-        const coinPanel = document.getElementById('coin-panel');
-
-        if (type === 'money') {
-            moneyTab.classList.add('active');
-            coinTab.classList.remove('active');
-            moneyPanel.style.display = 'block';
-            coinPanel.style.display = 'none';
-            setType('money');
-        } else {
-            coinTab.classList.add('active');
-            moneyTab.classList.remove('active');
-            coinPanel.style.display = 'block';
-            moneyPanel.style.display = 'none';
-            setType('coin');
-        }
-    }
-
-    function setType(value) {
-        const types = document.querySelectorAll('.class-type');
-        types.forEach(el => el.value = value);
-    }
-
-    // Form submission handler
-    const forms = document.querySelectorAll('.payment-form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function (e) {
-            const btn = this.querySelector('.submit-btn');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="icofont-spinner icofont-spin"></i> Bajarilmoqda...';
-        });
-    });
-</script>
-
-
-<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;72b499923c304ca590d917e3955e9593&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
-
-</body></html>
+</body>
+</html>

@@ -29,5 +29,6 @@ urlpatterns = [
     path('home/account/stats', StatistikaTemplateView.as_view(), name='stats'),
     path('home/account/konkurs', KonkursTemplateView.as_view(), name='konkurs'),
     path('home/account/pay', PayTemplateView.as_view(), name='pay'),
-    path('home/account/referal', ReferalTemplateView.as_view(), name='referal'),
+    path('home/account/referal', ReferalTemplateView.as_view(), name='referal_files'),
+    path('home/account/settings', SettingsTemplateView.as_view(), name='settings_files'),
 ]

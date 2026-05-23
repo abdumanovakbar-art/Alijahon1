@@ -35,3 +35,6 @@ class PayTemplateView(TemplateView):
 
 class ReferalTemplateView(TemplateView):
     template_name = 'referal.html'
+
+class SettingsTemplateView(TemplateView):
+    template_name = 'sozlamalar.html'

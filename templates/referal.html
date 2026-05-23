@@ -1,20 +1,22 @@
+{% load static %}
+
 <html lang="uz"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title></title>
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="/static/apps/img/fav-icon.png">
+    <link rel="icon" type="image/png" href=" {% static 'referal_files/fav-icon.png' %} ">
     <!-- Bootstrap core CSS -->
-    <link href="/static/apps/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href=" {% static 'referal_files/bootstrap.min.css' %} " rel="stylesheet">
     <!-- Font Awesome-->
-    <link href="/static/apps/vendor/fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="/static/apps/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href=" {% static 'referal_files/all.min.css' %} " rel="stylesheet">
+    <link href=" {% static 'referal_files/icofont.min.css' %} " rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="/static/apps/css/style.css" rel="stylesheet">
+    <link href=" {% static 'referal_files/style.css' %} " rel="stylesheet">
     <!-- Owl Carousel -->
-    <link rel="stylesheet" href="/static/apps/vendor/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="/static/apps/vendor/owl-carousel/owl.theme.css">
-    <link rel="manifest" href="/static/apps/json/manifest.json">
+    <link rel="stylesheet" href=" {% static 'referal_files/owl.carousel.css' %} ">
+    <link rel="stylesheet" href=" {% static 'referal_files/owl.theme.css' %} ">
+    <link rel="manifest" href=" {% static 'referal_files/manifest.json' %} ">
 
     <!-- Modern UI Styles -->
     <style>
@@ -129,7 +131,7 @@
 
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/static/apps/js/sw.js')
+            navigator.serviceWorker.register(' {% static 'referal_files/sw.js' %} ')
                 .then(function (reg) {
                     console.log("Service Worker ro'yxatdan o'tdi!", reg);
                 })
@@ -490,7 +492,7 @@
     <nav class="navbar navbar-expand-lg navbar-light modern-navbar">
         <div class="container">
             <a class="navbar-brand navbar-brand-modern" href="/">
-                <img src="/static/apps/img/alijahon.png" alt="Alijahon.uz">
+                <img src=" {% static 'referal_files/alijahon.png' %} " alt="Alijahon.uz">
             </a>
 
             <button class="navbar-toggler navbar-toggler-modern" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
@@ -995,16 +997,16 @@
 
 <!-- Bootstrap core JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/static/apps/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src=" {% static 'referal_files/bootstrap.bundle.min.js' %} "></script>
 
 <!-- Custom scripts for all pages-->
-<script src="/static/apps/js/custom.js"></script>
+<script src=" {% static 'referal_files/custom.js' %} "></script>
 <!-- Contact form JavaScript -->
 <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-<script src="/static/apps/js/jqBootstrapValidation.js"></script>
-<script src="/static/apps/js/contact_me.js"></script>
+<script src=" {% static 'referal_files/jqBootstrapValidation.js' %} "></script>
+<script src=" {% static 'referal_files/ontact_me.js' %} "></script>
 <!-- Owl Carousel -->
-<script src="/static/apps/vendor/owl-carousel/owl.carousel.js"></script>
+<script src=" {% static 'referal_files/owl.carousel.js' %} "></script>
 
 
 <script>
