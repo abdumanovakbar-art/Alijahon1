@@ -1,23 +1,6 @@
+{% extends 'base/admin_page_base.html' %}
 {% load static %}
-<html lang="uz"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title></title>
-    <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href=" {% static 'withdraw_files/fav-icon.png' %} ">
-    <!-- Bootstrap core CSS -->
-    <link href=" {% static 'withdraw_files/bootstrap.min.css' %} " rel="stylesheet">
-    <!-- Font Awesome-->
-    <link href=" {% static 'withdraw_files/all.min.css' %} " rel="stylesheet">
-    <link href=" {% static 'withdraw_files/icofont.min.css' %} " rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href=" {% static 'withdraw_files/style.css' %} " rel="stylesheet">
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" href=" {% static 'withdraw_files/owl.carousel.css' %} ">
-    <link rel="stylesheet" href=" {% static 'withdraw_files/owl.theme.css' %} ">
-    <link rel="manifest" href=" {% static 'withdraw_files/manifest.json' %} ">
-
-    <!-- Modern UI Styles -->
+{% block admin_body %}
     <style>
         :root {
             --primary-color: #4f46e5;
@@ -128,17 +111,6 @@
         }
     </style>
 
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register(' {% static 'withdraw_files/sw.js' %} ')
-                .then(function (reg) {
-                    console.log("Service Worker ro'yxatdan o'tdi!", reg);
-                })
-                .catch(function (err) {
-                    console.log("Service Worker xatosi!", err);
-                });
-        }
-    </script>
 
 
     <style>
@@ -623,891 +595,315 @@
         }
     </style>
 
-</head>
-<body>
 
 
 
-<style>
-    .modern-header {
-        background: white;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
 
-    .modern-navbar {
-        padding: 0;
-    }
 
-    .navbar-brand-modern {
-        padding: 12px 0;
-    }
 
-    .navbar-brand-modern img {
-        height: 45px;
-        width: auto;
-        transition: transform 0.3s ease;
-    }
 
-    .navbar-brand-modern:hover img {
-        transform: scale(1.05);
-    }
 
-    .nav-link-modern {
-        padding: 20px 16px !important;
-        font-weight: 600;
-        color: #475569 !important;
-        transition: all 0.3s ease;
-        position: relative;
-    }
-
-    .nav-item.dropdown.mega-menu {
-        position: static;
-    }
-
-    .nav-item.dropdown.profile-dropdown-nav {
-        position: relative;
-    }
-
-    .nav-link-modern::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 3px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        transition: width 0.3s ease;
-    }
-
-    .nav-link-modern:hover,
-    .nav-link-modern.active {
-        color: #667eea !important;
-    }
-
-    .nav-link-modern:hover::after {
-        width: 80%;
-    }
-
-    .search-box-header {
-        position: relative;
-        width: 400px;
-        max-width: 100%;
-    }
-
-    .search-box-header input {
-        width: 100%;
-        padding: 10px 45px 10px 20px;
-        border: 2px solid #e2e8f0;
-        border-radius: 30px;
-        transition: all 0.3s ease;
-    }
-
-    .search-box-header input:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        outline: none;
-    }
-
-    .search-box-header button {
-        position: absolute;
-        right: 5px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border: none;
-        color: white;
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .profile-dropdown-modern {
-        border-radius: 16px !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
-        border: none !important;
-        padding: 8px 0;
-        margin-top: 10px;
-        min-width: 250px;
-        right: 0 !important;
-        left: auto !important;
-    }
-
-    .dropdown-item-modern {
-        padding: 12px 24px;
-        font-weight: 500;
-        color: #475569;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .dropdown-item-modern i {
-        width: 20px;
-        font-size: 18px;
-        color: #667eea;
-    }
-
-    .dropdown-item-modern:hover {
-        background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
-        color: #667eea;
-    }
-
-    .profile-pic-modern {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        border: 2px solid #667eea;
-        object-fit: cover;
-    }
-
-    .mega-dropdown-modern {
-        border-radius: 16px !important;
-        border: none !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
-        padding: 30px 20px !important;
-        margin-top: 10px !important;
-        width: 90% !important;
-        max-width: 1200px !important;
-        left: 5% !important;
-        right: 5% !important;
-    }
-
-    .mega-list-modern {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .mega-list-modern a {
-        padding: 8px 12px;
-        color: #475569;
-        text-decoration: none;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        font-size: 13px;
-        white-space: nowrap;
-        display: block;
-    }
-
-    .mega-list-modern a:hover {
-        background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
-        color: #667eea;
-        transform: translateX(4px);
-    }
-
-    .dropdown-toggle::after {
-        display: none;
-    }
-
-    .navbar-toggler-modern {
-        border: 2px solid #667eea;
-        padding: 8px 12px;
-        border-radius: 8px;
-    }
-
-    @media (max-width: 992px) {
-        .search-box-header {
-            width: 100%;
-            margin: 16px 0;
+    <style>
+        .sidebar-modern {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
         }
 
-        .nav-link-modern {
-            padding: 12px 16px !important;
+        .user-profile-modern {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
         }
 
-        .nav-link-modern::after {
-            display: none;
+        .user-profile-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.4;
         }
 
-        .mega-dropdown-modern {
-            min-width: 100% !important;
-            left: 0 !important;
-            transform: none !important;
-            padding: 16px !important;
-            max-height: 400px;
-            overflow-y: auto;
+        .user-avatar-modern {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
         }
 
-        .mega-dropdown-modern .row {
-            flex-direction: column;
+        .user-info-modern {
+            color: white;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
         }
 
-        .mega-dropdown-modern .col-lg-2 {
-            width: 100%;
-        }
-    }
-</style>
-
-<div class="modern-header">
-    <nav class="navbar navbar-expand-lg navbar-light modern-navbar">
-        <div class="container">
-            <a class="navbar-brand navbar-brand-modern" href="/">
-                <img src=" {% static 'withdraw_files/alijahon.png' %} " alt="Alijahon.uz">
-            </a>
-
-            <button class="navbar-toggler navbar-toggler-modern" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-modern" href="/">
-                            <i class="icofont-ui-home"></i> Bosh sahifa
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown mega-menu">
-                        <a class="nav-link nav-link-modern dropdown-toggle" href="#" data-toggle="dropdown">
-                            <i class="icofont-list"></i> Kategoriyalar
-                        </a>
-                        <div class="dropdown-menu mega-dropdown-modern">
-                            <div class="row">
-                                <div class="col-lg-2 col-md-4 col-sm-6">
-                                    <div class="mega-list-modern">
-
-                                        <a href="/category/uy-uchun">
-                                            Uy ruzg'or uchun maxsulotlar
-                                        </a>
-
-                                        <a href="/category/bolalar-uchun">
-                                            Bolalar uchun maxsulotlar
-                                        </a>
-
-                                        <a href="/category/sovga">
-                                            Sovg'alar
-                                        </a>
-
-                                        <a href="/category/ayollar">
-                                            Ayollar uchun maxsulotlar
-                                        </a>
-
-                                        <a href="/category/davolovchi-mahsulotlar">
-                                            Davolovchi mahsulotlar
-                                        </a>
-
-                                        <a href="/category/erkaklar-uchun">
-                                            Erkaklar uchun maxsulotlar
-                                        </a>
-
-                                        <a href="/category/fitnes">
-                                            Fitnes trenajorlar
-                                        </a>
-
-                                        <a href="/category/davolovchi-mazlar">
-                                            Davolovchi mazlar
-                                        </a>
-
-                                        <a href="/category/moshina-uchun">
-                                            Moshina uchun
-                                        </a>
-
-                                        <a href="/category/kitoblar">
-                                            Kitoblar
-                                        </a>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-4 col-sm-6">
-                                    <div class="mega-list-modern">
-
-                                        <a href="/category/aqlli-soatlar">
-                                            soatlar
-                                        </a>
-
-                                        <a href="/category/atir">
-                                            Atirlar
-                                        </a>
-
-                                        <a href="/category/yangi-yel-maxsulotlari">
-                                            Yangi yil  maxsulotlari
-                                        </a>
-
-                                        <a href="/category/eliktironika">
-                                            Elektironika
-                                        </a>
-
-                                        <a href="/category/kozoynaklar">
-                                            Kozoynaklar
-                                        </a>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-4 col-sm-6">
-                                    <div class="mega-list-modern">
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-4 col-sm-6">
-                                    <div class="mega-list-modern">
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-4 col-sm-6">
-                                    <div class="mega-list-modern">
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-4 col-sm-6">
-                                    <div class="mega-list-modern">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-modern" href="/category">
-                            <i class="icofont-shopping-cart"></i> Do'kon
-                        </a>
-                    </li>
-                </ul>
-
-                <form action="/search" method="POST" class="search-box-header" autocomplete="off">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
-                    <input id="search-input" name="product" type="search" placeholder="Mahsulot qidirish...">
-                    <button type="submit">
-                        <i class="icofont-search"></i>
-                    </button>
-                </form>
-
-                <ul class="navbar-nav ml-auto">
-
-                    <li class="nav-item dropdown profile-dropdown-nav">
-                        <a class="nav-link nav-link-modern dropdown-toggle" href="#" data-toggle="dropdown">
-                            <img src="/media/img/nouser.png" alt="" class="profile-pic-modern">
-                            <span class="ml-2"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right profile-dropdown-modern">
-
-
-
-
-
-
-
-
-
-
-
-                            <a class="dropdown-item dropdown-item-modern" href="/admin_page">
-                                <i class="icofont-ui-user"></i>
-                                <span>Mening kabinetim</span>
-                            </a>
-
-
-                            <div class="dropdown-divider" style="margin: 8px 0;"></div>
-
-                            <a class="dropdown-item dropdown-item-modern" href="/profile/logout">
-                                <i class="icofont-logout"></i>
-                                <span>Chiqish</span>
-                            </a>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
-
-
-
-<div class="container withdraw-container">
-    <div class="row">
-
-
-        <style>
-            .sidebar-modern {
-                background: white;
-                border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-                overflow: hidden;
-                position: sticky;
-                top: 20px;
-            }
-
-            .user-profile-modern {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                padding: 30px 20px;
-                text-align: center;
-                position: relative;
-            }
-
-            .user-profile-modern::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-                opacity: 0.4;
-            }
-
-            .user-avatar-modern {
-                width: 100px;
-                height: 100px;
-                border-radius: 50%;
-                border: 4px solid white;
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-                object-fit: cover;
-                position: relative;
-                z-index: 1;
-            }
-
-            .user-info-modern {
-                color: white;
-                margin-top: 15px;
-                position: relative;
-                z-index: 1;
-            }
-
-            .user-info-modern h6 {
-                font-size: 18px;
-                font-weight: 700;
-                margin-bottom: 8px;
-            }
-
-            .user-info-modern p {
-                font-size: 13px;
-                opacity: 0.95;
-                margin-bottom: 4px;
-            }
-
-            .nav-modern {
-                padding: 10px 0;
-            }
-
-            .nav-modern .nav-item {
-                margin: 0;
-            }
-
-            .nav-modern .nav-link {
-                color: #64748b;
-                padding: 14px 24px;
-                display: flex;
-                align-items: center;
-                font-weight: 500;
-                font-size: 15px;
-                border-left: 3px solid transparent;
-                transition: all 0.3s ease;
-            }
-
-            .nav-modern .nav-link i {
-                font-size: 20px;
-                margin-right: 12px;
-                width: 24px;
-                text-align: center;
-            }
-
-            .nav-modern .nav-link:hover,
-            .nav-modern .nav-link.active {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
-                color: #667eea;
-                border-left-color: #667eea;
-            }
-
-            @media (max-width: 768px) {
-                .sidebar-modern {
-                    margin-bottom: 20px;
-                    position: static;
-                }
-
-                .user-profile-modern {
-                    padding: 20px 15px;
-                }
-
-                .user-avatar-modern {
-                    width: 80px;
-                    height: 80px;
-                }
-
-                .user-info-modern h6 {
-                    font-size: 16px;
-                }
-
-                .user-info-modern p {
-                    font-size: 12px;
-                }
-
-                .nav-modern .nav-link {
-                    padding: 12px 20px;
-                    font-size: 14px;
-                }
-
-                .nav-modern .nav-link i {
-                    font-size: 18px;
-                    margin-right: 10px;
-                }
-            }
-        </style>
-
-        <div class="col-md-3 mb-4">
-            <div class="sidebar-modern">
-                <div class="user-profile-modern">
-                    <img class="user-avatar-modern" src="/media/img/nouser.png" alt="">
-                    <div class="user-info-modern">
-                        <h6></h6>
-                        <p>+998950989950</p>
-                        <p></p>
-                    </div>
-                </div>
-                <ul class="nav nav-modern flex-column" id="myTab" role="tablist">
-
-                    <li class="nav-item">
-                        <a href="/admin_page" class="nav-link " role="tab">
-                            <i class="icofont-ui-user"></i>
-                            <span>Mening kabinetim</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " href="/admin_page/market">
-                            <i class="icofont-shopping-cart"></i>
-                            <span>Market</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/admin_page/requests" class="nav-link ">
-                            <i class="icofont-list"></i>
-                            <span>So'rovnomalar</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="/admin_page/urls">
-                            <i class="icofont-link"></i>
-                            <span>Havolalar</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/admin_page/stats" class="nav-link ">
-                            <i class="icofont-chart-bar-graph"></i>
-                            <span>Statistika</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="/admin_page/competition">
-                            <i class="icofont-trophy-alt"></i>
-                            <span>Konkurs</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/admin_page/withdraw">
-                            <i class="icofont-money"></i>
-                            <span>To'lov</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="/profile/referral">
-                            <i class="icofont-users-alt-4"></i>
-                            <span>Referal</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="/profile/settings">
-                            <i class="icofont-ui-settings"></i>
-                            <span>Sozlamalar</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="balance-card">
-                        <i class="icofont-wallet balance-icon"></i>
-                        <h5>Mening Hisobim</h5>
-                        <div class="balance-amount">0 so'm</div>
-                    </div>
-
-
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="withdraw-form-card">
-                        <div class="withdraw-form-header">
-                            <h5>
-                                <i class="icofont-money"></i> Pul Yechish
-                            </h5>
-                        </div>
-
-                        <div class="tab-navigation">
-                            <button class="tab-button active" id="money-tab" onclick="switchTab('money')">
-                                <i class="icofont-cur-dollar"></i> Pul
-                            </button>
-                            <button class="tab-button" id="coin-tab" onclick="switchTab('coin')">
-                                <i class="icofont-coins"></i> Tanga
-                            </button>
-                        </div>
-
-                        <div class="tab-content-panel" id="money-panel">
-                            <form class="payment-form" method="post">
-                                <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
-
-                                <div class="form-group-modern">
-                                    <label>Karta raqami</label>
-                                    <input type="text" name="card_number" class="form-control" placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required="" id="id_card_number">
-
-                                </div>
-
-                                <div class="form-group-modern">
-                                    <label>Amount</label>
-                                    <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting" required="" id="id_amount">
-
-                                </div>
-
-                                <div class="form-group-modern">
-                                    <label></label>
-                                    <select name="type" class="form-control class-type" style="display: none;" id="id_type">
-                                        <option value="coin">Tanga</option>
-
-                                        <option value="money" selected="">Pul</option>
-
-                                    </select>
-
-                                </div>
-
-                                <button type="submit" class="submit-button submit-btn">
-                                    <i class="icofont-check"></i> Tasdiqlash
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="tab-content-panel" id="coin-panel" style="display: none;">
-                            <form class="payment-form" method="post">
-                                <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
-
-                                <div class="form-group-modern">
-                                    <label>Karta raqami</label>
-                                    <input type="text" name="card_number" class="form-control" placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required="" id="id_card_number">
-
-                                </div>
-
-                                <div class="form-group-modern">
-                                    <label>Amount</label>
-                                    <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting" required="" id="id_amount">
-
-                                </div>
-
-                                <div class="form-group-modern">
-                                    <label></label>
-                                    <select name="type" class="form-control class-type" style="display: none;" id="id_type">
-                                        <option value="coin">Tanga</option>
-
-                                        <option value="money" selected="">Pul</option>
-
-                                    </select>
-
-                                </div>
-
-                                <button type="submit" class="submit-button submit-btn">
-                                    <i class="icofont-check"></i> Tasdiqlash
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="transactions-card">
-                <div class="transactions-header">
-                    <h5>
-                        <i class="icofont-history"></i>
-                        <span>O'tkazmalar Tarixi</span>
-                    </h5>
-                    <span class="transactions-count">0 ta</span>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="transactions-table">
-                        <thead>
-                        <tr>
-                            <th>Sana</th>
-                            <th>Hisob raqam</th>
-                            <th>Summa</th>
-                            <th>Holat</th>
-                            <th>Xabar</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        <tr>
-                            <td colspan="5" style="text-align: center; padding: 40px; color: #64748b;">
-                                <i class="icofont-history" style="font-size: 48px; display: block; margin-bottom: 16px;"></i>
-                                <strong>Hozircha pul yechish so'rovlari mavjud emas</strong>
-                            </td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<style>
-    .modern-footer {
-        background: white;
-        border-top: 1px solid #e2e8f0;
-        padding: 0;
-        margin-top: 60px;
-    }
-
-    .footer-copyright {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 24px 0;
-        color: white;
-    }
-
-    .copyright-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-
-    .copyright-text {
-        margin: 0;
-        font-size: 14px;
-    }
-
-    .copyright-text a {
-        color: white;
-        font-weight: 700;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    .copyright-text a:hover {
-        opacity: 0.8;
-    }
-
-    .footer-links {
-        display: flex;
-        gap: 24px;
-        flex-wrap: wrap;
-    }
-
-    .footer-links a {
-        color: white;
-        text-decoration: none;
-        font-size: 14px;
-        transition: all 0.3s ease;
-    }
-
-    .footer-links a:hover {
-        opacity: 0.8;
-    }
-
-    @media (max-width: 768px) {
-        .modern-footer {
-            margin-top: 40px;
+        .user-info-modern h6 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
-        .footer-copyright {
-            padding: 20px 0;
+        .user-info-modern p {
+            font-size: 13px;
+            opacity: 0.95;
+            margin-bottom: 4px;
         }
 
-        .copyright-content {
-            flex-direction: column;
+        .nav-modern {
+            padding: 10px 0;
+        }
+
+        .nav-modern .nav-item {
+            margin: 0;
+        }
+
+        .nav-modern .nav-link {
+            color: #64748b;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 15px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-modern .nav-link i {
+            font-size: 20px;
+            margin-right: 12px;
+            width: 24px;
             text-align: center;
         }
 
-        .footer-links {
-            justify-content: center;
+        .nav-modern .nav-link:hover,
+        .nav-modern .nav-link.active {
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+            color: #667eea;
+            border-left-color: #667eea;
         }
-    }
-</style>
 
-<footer class="modern-footer">
-    <div class="footer-copyright">
-        <div class="container">
-            <div class="copyright-content">
-                <p class="copyright-text">
-                    <a href="/">Alijahon.uz</a> © 2026 Barcha huquqlar himoyalangan
-                </p>
-                <div class="footer-links">
-                    <a href="/">Bosh sahifa</a>
-                    <a href="/category">Do'kon</a>
-                    <a href="#">Aloqa</a>
+        @media (max-width: 768px) {
+            .sidebar-modern {
+                margin-bottom: 20px;
+                position: static;
+            }
+
+            .user-profile-modern {
+                padding: 20px 15px;
+            }
+
+            .user-avatar-modern {
+                width: 80px;
+                height: 80px;
+            }
+
+            .user-info-modern h6 {
+                font-size: 16px;
+            }
+
+            .user-info-modern p {
+                font-size: 12px;
+            }
+
+            .nav-modern .nav-link {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .nav-modern .nav-link i {
+                font-size: 18px;
+                margin-right: 10px;
+            }
+        }
+    </style>
+
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="balance-card">
+                    <i class="icofont-wallet balance-icon"></i>
+                    <h5>Mening Hisobim</h5>
+                    <div class="balance-amount">0 so'm</div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="withdraw-form-card">
+                    <div class="withdraw-form-header">
+                        <h5>
+                            <i class="icofont-money"></i> Pul Yechish
+                        </h5>
+                    </div>
+
+                    <div class="tab-navigation">
+                        <button class="tab-button active" id="money-tab" onclick="switchTab(&#39;money&#39;)">
+                            <i class="icofont-cur-dollar"></i> Pul
+                        </button>
+                        <button class="tab-button" id="coin-tab" onclick="switchTab(&#39;coin&#39;)">
+                            <i class="icofont-coins"></i> Tanga
+                        </button>
+                    </div>
+
+                    <div class="tab-content-panel" id="money-panel">
+                        <form class="payment-form" method="post">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
+
+                            <div class="form-group-modern">
+                                <label>Karta raqami</label>
+                                <input type="text" name="card_number" class="form-control" placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required="" id="id_card_number">
+
+                            </div>
+
+                            <div class="form-group-modern">
+                                <label>Amount</label>
+                                <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting" required="" id="id_amount">
+
+                            </div>
+
+                            <div class="form-group-modern">
+                                <label></label>
+                                <select name="type" class="form-control class-type" style="display: none;" id="id_type">
+                                    <option value="coin">Tanga</option>
+
+                                    <option value="money" selected="">Pul</option>
+
+                                </select>
+
+                            </div>
+
+                            <button type="submit" class="submit-button submit-btn">
+                                <i class="icofont-check"></i> Tasdiqlash
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="tab-content-panel" id="coin-panel" style="display: none;">
+                        <form class="payment-form" method="post">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
+
+                            <div class="form-group-modern">
+                                <label>Karta raqami</label>
+                                <input type="text" name="card_number" class="form-control" placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required="" id="id_card_number">
+
+                            </div>
+
+                            <div class="form-group-modern">
+                                <label>Amount</label>
+                                <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting" required="" id="id_amount">
+
+                            </div>
+
+                            <div class="form-group-modern">
+                                <label></label>
+                                <select name="type" class="form-control class-type" style="display: none;" id="id_type">
+                                    <option value="coin">Tanga</option>
+
+                                    <option value="money" selected="">Pul</option>
+
+                                </select>
+
+                            </div>
+
+                            <button type="submit" class="submit-button submit-btn">
+                                <i class="icofont-check"></i> Tasdiqlash
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="transactions-card">
+            <div class="transactions-header">
+                <h5>
+                    <i class="icofont-history"></i>
+                    <span>O'tkazmalar Tarixi</span>
+                </h5>
+                <span class="transactions-count">0 ta</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="transactions-table">
+                    <thead>
+                    <tr>
+                        <th>Sana</th>
+                        <th>Hisob raqam</th>
+                        <th>Summa</th>
+                        <th>Holat</th>
+                        <th>Xabar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #64748b;">
+                            <i class="icofont-history" style="font-size: 48px; display: block; margin-bottom: 16px;"></i>
+                            <strong>Hozircha pul yechish so'rovlari mavjud emas</strong>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
     </div>
-</footer>
+    <script>
+        function switchTab(type) {
+            // Tab buttons
+            const moneyTab = document.getElementById('money-tab');
+            const coinTab = document.getElementById('coin-tab');
 
-<!-- Bootstrap core JavaScript -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src=" {% static 'withdraw_files/bootstrap.bundle.min.js' %} "></script>
+            // Tab panels
+            const moneyPanel = document.getElementById('money-panel');
+            const coinPanel = document.getElementById('coin-panel');
 
-<!-- Custom scripts for all pages-->
-<script src=" {% static 'withdraw_files/custom.js' %} "></script>
-<!-- Contact form JavaScript -->
-<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-<script src=" {% static 'withdraw_files/jqBootstrapValidation.js' %} "></script>
-<script src=" {% static 'withdraw_files/contact_me.js' %} "></script>
-<!-- Owl Carousel -->
-<script src=" {% static 'withdraw_files/owl.carousel.js' %} "></script>
-
-
-<script>
-    function switchTab(type) {
-        // Tab buttons
-        const moneyTab = document.getElementById('money-tab');
-        const coinTab = document.getElementById('coin-tab');
-
-        // Tab panels
-        const moneyPanel = document.getElementById('money-panel');
-        const coinPanel = document.getElementById('coin-panel');
-
-        if (type === 'money') {
-            moneyTab.classList.add('active');
-            coinTab.classList.remove('active');
-            moneyPanel.style.display = 'block';
-            coinPanel.style.display = 'none';
-            setType('money');
-        } else {
-            coinTab.classList.add('active');
-            moneyTab.classList.remove('active');
-            coinPanel.style.display = 'block';
-            moneyPanel.style.display = 'none';
-            setType('coin');
+            if (type === 'money') {
+                moneyTab.classList.add('active');
+                coinTab.classList.remove('active');
+                moneyPanel.style.display = 'block';
+                coinPanel.style.display = 'none';
+                setType('money');
+            } else {
+                coinTab.classList.add('active');
+                moneyTab.classList.remove('active');
+                coinPanel.style.display = 'block';
+                moneyPanel.style.display = 'none';
+                setType('coin');
+            }
         }
-    }
 
-    function setType(value) {
-        const types = document.querySelectorAll('.class-type');
-        types.forEach(el => el.value = value);
-    }
+        function setType(value) {
+            const types = document.querySelectorAll('.class-type');
+            types.forEach(el => el.value = value);
+        }
 
-    // Form submission handler
-    const forms = document.querySelectorAll('.payment-form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function (e) {
-            const btn = this.querySelector('.submit-btn');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="icofont-spinner icofont-spin"></i> Bajarilmoqda...';
+        // Form submission handler
+        const forms = document.querySelectorAll('.payment-form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function (e) {
+                const btn = this.querySelector('.submit-btn');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="icofont-spinner icofont-spin"></i> Bajarilmoqda...';
+            });
         });
-    });
-</script>
+    </script>
 
 
-<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;72b499923c304ca590d917e3955e9593&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
 
-</body></html>
+{% endblock %}

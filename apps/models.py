@@ -1,7 +1,8 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
-from django.db.models import CharField, DecimalField, Model, CASCADE, ForeignKey, ImageField, TextField, DateTimeField
+from django.db.models import CharField, DecimalField, Model, CASCADE, ForeignKey, ImageField, TextField, DateTimeField, \
+    IntegerField, SlugField
 
 
 class CustomUserManager(UserManager):
@@ -54,6 +55,7 @@ class User(AbstractUser):
 class Category(Model):
     title = CharField(max_length=255)
     logo = CharField(max_length=255)
+    slug = SlugField(max_length=255)
 
 
 class Product(Model):
@@ -61,6 +63,9 @@ class Product(Model):
     price = DecimalField(max_digits=10, decimal_places=0)
     category = ForeignKey('apps.Category', on_delete=CASCADE, related_name='products')
     description = TextField()
+    order_count  = IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    slug = SlugField(max_length=255  , unique=True)
 
 
 class Order(Model):

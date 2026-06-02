@@ -1,0 +1,29 @@
+{% extends 'base/login_base.html' %}
+
+{% block login %}
+    <div class="tab-pane active" id="login-form" role="tabpanel">
+        <form action="/login" method="post">
+            <input type="hidden" name="csrfmiddlewaretoken" value="yxFPqRfKGL2y76rUHvFXhKsqr5sCzZ8ZiD0EtXQ7asiZySa4LSJh3zQBbAduE8Nc">
+            <h5 class="heading-design-h5 text-dark">Login</h5>
+            <fieldset class="form-group mt-4">
+                <label>Telefon</label>
+                <input type="text" id="phone-mask" class="form-control" name="phone_number" placeholder="Telefon raqam">
+            </fieldset>
+            <fieldset class="form-group">
+                <label>Parol</label>
+                <input type="password" class="form-control" name="password" placeholder="****">
+            </fieldset>
+            <fieldset class="form-group">
+                <button type="submit" class="btn btn-lg btn-primary btn-block">
+                    Kirish
+                </button>
+            </fieldset>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">
+                    Eslab qolish
+                </label>
+            </div>
+        </form>
+    </div>
+{% endblock %}
