@@ -1,108 +1,120 @@
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import make_password, check_password
-from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views import View
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView
 
+from apps.forms import RegistrationForm, LoginForm
 from apps.models import User, Product, Category
 
 
-# Create your views here.
+class AlijahonHomeView(ListView):
+    template_name = 'home.html'
+    model = Category
+    context_object_name = 'cate'
 
-
-class AlijahonHomeView(TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['pro_data'] = Product.objects.all()
         data['cate_data'] = Category.objects.all()
         return data
 
-    template_name = 'home.html'
-
 
 class ShopView(TemplateView):
     template_name = 'shop.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
 
 
 class AccountView(TemplateView):
     template_name = 'acc.html'
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['user'] = self.request.user
+        return data
 
-class AdminMarketView(TemplateView):
+class AdminMarketView(ListView):
     template_name = 'market.html'
+    context_object_name = 'products'
 
+    def get_queryset(self):
+        category_id = self.kwargs.get('pk')
+        if category_id:
+            return Product.objects.filter(category_id=category_id)
+        return Product.objects.all()
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
 
 class SorovTemplateView(TemplateView):
     template_name = 'sorov.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
 
 
 class HavolaTemplateView(TemplateView):
     template_name = 'havolalar.html'
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
+
 
 class StatistikaTemplateView(TemplateView):
     template_name = 'statistika.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
 
 
 class KonkursTemplateView(TemplateView):
     template_name = 'konkurs.html'
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
+
 
 class PayTemplateView(TemplateView):
     template_name = 'pay.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
 
 
 class ReferalTemplateView(TemplateView):
     template_name = 'referal.html'
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
+
 
 class SettingsTemplateView(TemplateView):
     template_name = 'sozlamalar.html'
 
-
-# class RegisterView(View):
-#     def get(self, request):
-#         return render(request, 'home.html')
-#
-#     def post(self, request):
-#         first_name = request.POST.get('first_name')
-#         phone = request.POST.get('phone')
-#         password = request.POST.get('password')
-#         cnf_password = request.POST.get('cnf_password')
-#
-#         if password != cnf_password:
-#             messages.error(request, 'Password mos kelmadi')
-#             return render(request, 'home.html')
-#
-#         if User.objects.filter(phone=phone).exists():  # phone_number → phone
-#             messages.error(request, "Bu telefon raqam allaqachon ro'yxatdan o'tgan")
-#             return render(request, 'home.html')
-#
-#         user = User(first_name=first_name, phone=phone)  # phone_number → phone
-#         user.password = make_password(password)
-#         user.save()
-#         login(request, user)
-#         return redirect('home')
-#
-#
-# class LoginView(View):
-#     def get(self, request):
-#         return render(request, 'home.html')
-#
-#     def post(self, request):
-#         phone_number = request.POST.get('phone')
-#         password = request.POST.get('password')
-#         queryset = User.objects.filter(phone=phone_number)
-#         if queryset.exists():
-#             user = queryset.first()
-#             if user.check_password(password):
-#                 login(request, user)
-#                 return redirect('home')
-#         messages.error(request, "Telefon yoki parol noto'g'ri")
-#         return render(request, 'home.html')
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
 
 
 class CategoryProductsView(TemplateView):
@@ -114,58 +126,63 @@ class CategoryProductsView(TemplateView):
         if cate_it:
             data['pro_data'] = Product.objects.filter(category_id=cate_it)
             data['cate_name'] = Category.objects.filter(id=cate_it).first()
-
         else:
             data['pro_data'] = Product.objects.all()
-        data['cate_date'] = Category.objects.all()
+        data['cate'] = Category.objects.all()
         return data
 
 
-def AllCategory(request):
-    cate = Category.objects.all()
-    return render(request, 'base/base.html', {'cate': cate})
+class LoginFormView(FormView):
+    form_class = LoginForm
+    success_url = reverse_lazy('home')
+    template_name = 'home.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
+
+    def form_invalid(self, form):
+        for error_message in form.errors.values():
+            messages.error(self.request, error_message)
+        return super().form_invalid(form)
 
 
-class AuthViewList(View):
-    def post(self, request, **kwargs):
-        action = request.POST.get('action')
+class RegisterView(CreateView):
+    queryset = User.objects.all()
+    form_class = RegistrationForm
+    template_name = 'home.html'
+    success_url = reverse_lazy('home')
 
-        if action == 'register':
-            phone_number = request.POST.get('phone_number')
-            password = request.POST.get('password')
-            conf_password = request.POST.get('conf_password')
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
 
-            user_data = User.objects.filter(phone_number=phone_number).first()
-            if user_data:
-                messages.error(request, "Bundey nomer allaqachon mavjud")
-                return redirect('home')
-
-            if password != conf_password:
-                messages.error(request, "parol bir  biriga mos kelmadi")
-                return redirect('home')
-
-            User.objects.create_user(phone_number=phone_number, password=password)
-            messages.success(request, "Muffaqiyatli royxatdan otdingiz")
-            return redirect('home')
-        elif action == 'login':
-            phone_number = request.POST.get('phone_number')
-            password = request.POST.get('password')
-            user_data = User.objects.filter(phone_number=phone_number).first()
-            if not user_data:
-                messages.error(request, "Bundey nomer mavjud emas royxatdan oting")
-                return redirect('home')
-
-            if not check_password(password, user_data.password):
-                messages.error(request, "Parol xato kiritildi")
-                return redirect('home')
-
-            messages.success(request, "Hush kelibsiz")
-            login(request, user_data)
-            return redirect('account')
+    def form_invalid(self, form):
+        for error_message in form.errors.values():
+            messages.error(self.request, error_message)
+        return super().form_invalid(form)
 
 
+class LogOut(View):
+    def get(self, request):
+        logout(request)
+        return redirect('home')
 
-def logout(request):
-    messages.success(request, 'Logged Out')
-    logout(request)
-    return redirect('home.html')
+
+class ProductDetailView(DetailView):
+    queryset = Product.objects.all()
+    template_name = 'detail.html'
+    context_object_name = 'data'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['cate'] = Category.objects.all()
+        return data
+

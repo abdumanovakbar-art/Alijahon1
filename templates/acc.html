@@ -10,7 +10,7 @@
             <div class="balance-grid">
                 <div class="balance-item">
                     <div class="label">Asosiy Balans</div>
-                    <div class="amount">0 so'm</div>
+                    <div class="amount">{{ user.balance }} so'm</div>
                 </div>
                 <div class="balance-item" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
                     <div class="label">Yo'ldagi Pul</div>
@@ -20,10 +20,9 @@
                     <div class="label">
                         <a href="/admin_page/coins" style="color: white; text-decoration: none;">Tangalar</a>
                     </div>
-                    <div class="amount">0</div>
+                    <div class="amount">{{ user.coins }}</div>
                 </div>
             </div>
-
             <div class="api-key-section">
                 <div class="label">API Key</div>
                 <div class="api-key-content">
@@ -103,7 +102,7 @@
                     </div>
                 </a>
 
-                <a href="{% url 'home' %}" class="menu-item">
+                <a href="{% url 'logout' %}" class="menu-item">
                     <i class="icofont-logout"></i>
                     <div class="text">
                         <h5>Chiqish</h5>

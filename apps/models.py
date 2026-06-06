@@ -50,7 +50,6 @@ class User(AbstractUser):
     api_key = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     password = models.CharField(max_length=255, null=True, blank=True)
-    conf_password = models.CharField(max_length=255, null=True, blank=True)
 
 
 class Category(Model):
@@ -63,6 +62,7 @@ class Product(Model):
     price = DecimalField(max_digits=10, decimal_places=0)
     category = ForeignKey('apps.Category', on_delete=CASCADE, related_name='products')
     description = TextField()
+    amount = IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     image = ImageField(upload_to='products/')
 

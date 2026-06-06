@@ -1,178 +1,40 @@
 {% extends 'base/base.html' %}
 {% load static %}
+
+
 {% block body %}
-    <div class="modal fade login-modal-main show" id="login" style="padding-right: 8px; display: none;"
-         aria-modal="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="login-modal">
-                        <div class="row">
-                            <div class="col-lg-6 d-flex align-items-center">
-                                <div class="login-modal-left p-4 text-center pl-5">
-                                    <img src=" {% static 'apps/alijahon.png' %} " alt="..." style="width: 300px;">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <button type="button" class="close close-top-right position-absolute"
-                                        data-dismiss="modal"
-                                        aria-label="Close">
-                                    <span aria-hidden="true"><i class="icofont-close-line"></i></span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <ul class="mt-4 mr-4 nav nav-tabs-login float-right position-absolute" role="tablist">
-                                    <li>
-                                        <a class="nav-link-login active" data-toggle="tab" href="#login-form"
-                                           role="tab"><i
-                                                class="icofont-ui-lock"></i> Login</a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link-login" data-toggle="tab" href="#register" role="tab"><i
-                                                class="icofont icofont-pencil"></i> Ro'yxatdan o'tish</a>
-                                    </li>
-                                </ul>
-                                <div class="login-modal-right p-4">
-                                    <!-- Tab panes -->
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="login-form" role="tabpanel">
-                                            <form action="/login" method="post">
-                                                <input type="hidden" name="csrfmiddlewaretoken"
-                                                       value="c0tHQlEnqouSrG2o5iTrZ60piEHbK7SlmoUeDcl2e58f2l7smj8UAyIEuOezfqWO">
-                                                <h5 class="heading-design-h5 text-dark">Login</h5>
-                                                <fieldset class="form-group mt-4">
-                                                    <label>Telefon</label>
-                                                    <input type="text" id="phone-mask" class="form-control"
-                                                           name="phone_number" placeholder="Telefon raqam">
-                                                </fieldset>
-                                                <fieldset class="form-group">
-                                                    <label>Parol</label>
-                                                    <input type="password" class="form-control" name="password"
-                                                           placeholder="****">
-                                                </fieldset>
-                                                <fieldset class="form-group">
-                                                    <button type="submit" class="btn btn-lg btn-primary btn-block">
-                                                        Kirish
-                                                    </button>
-                                                </fieldset>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                           id="customCheck1">
-                                                    <label class="custom-control-label" for="customCheck1">
-                                                        Eslab qolish
-                                                    </label>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                        <div class="tab-pane" id="register" role="tabpanel">
-                                            <form action="/register" method="post">
-                                                <input type="hidden" name="csrfmiddlewaretoken"
-                                                       value="c0tHQlEnqouSrG2o5iTrZ60piEHbK7SlmoUeDcl2e58f2l7smj8UAyIEuOezfqWO">
-                                                <h5 class="heading-design-h5 text-dark">Register</h5>
-                                                <fieldset class="form-group mt-4">
-                                                    <label>Telefon</label>
-                                                    <input type="text" id="phone-mask-two" name="phone_number"
-                                                           class="form-control" placeholder="Telefon raqam">
-                                                </fieldset>
-                                                <fieldset class="form-group">
-                                                    <label>Parol</label>
-                                                    <input type="password" name="password" class="form-control"
-                                                           placeholder="***">
-                                                </fieldset>
-                                                <fieldset class="form-group">
-                                                    <label>Parolni takrorlash</label>
-                                                    <input type="password" name="conf_password" class="form-control"
-                                                           placeholder="***">
-                                                </fieldset>
-                                                <fieldset class="form-group">
-                                                    <button type="submit" class="btn btn-lg btn-primary btn-block">
-                                                        Yangi akkaunt ochish
-                                                    </button>
-                                                </fieldset>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                           id="customCheck2">
-                                                    <label class="custom-control-label" for="customCheck2">
-                                                        <a href="#">Barcha shartlar</a>ga roziman
-                                                    </label>
-                                                </div>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.js"></script>
-    <script>
-        $('#phone-mask').inputmask({
-            "mask": "+\\9\\98(99) 999-99-99"
-        });
-        $('#phone-mask-two').inputmask({
-            "mask": "+\\9\\98(99) 999-99-99"
-        });
-    </script>
-
-
-    <!-- Hero Banner Section -->
     <div class="hero-section">
         <div class="container-fluid px-0">
-            <div id="owl-carousel-one" class="owl-carousel hero-carousel owl-theme" style="opacity: 1; display: block;">
-
-                <div class="owl-wrapper-outer">
-                    <div class="owl-wrapper"
-                         style="width: 1320px; left: 0px; display: block; transition: 800ms; transform: translate3d(-330px, 0px, 0px);">
-                        <div class="owl-item" style="width: 330px;">
-                            <div class="item banner-item">
-                                <img class="img-fluid w-100 banner-image" src="/media/banners/slider2.png"
-                                     alt="Banner 1">
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 330px;">
-                            <div class="item banner-item">
-                                <img class="img-fluid w-100 banner-image" src="/media/banners/slider1.png"
-                                     alt="Banner 2">
-                            </div>
-                        </div>
-                    </div>
+            <div id="owl-carousel-one" class="owl-carousel hero-carousel">
+                <div class="item banner-item">
+                    <img class="img-fluid w-100 banner-image"
+                         src="{% static 'apps/slider2.png' %}"
+                         alt="Banner 1">
                 </div>
-
-
-                <div class="owl-controls clickable">
-                    <div class="owl-buttons">
-                        <div class="owl-prev"><i class="icofont icofont-thin-left"></i></div>
-                        <div class="owl-next"><i class="icofont icofont-thin-right"></i></div>
-                    </div>
+                <div class="item banner-item">
+                    <img class="img-fluid w-100 banner-image"
+                         src="{% static 'apps/slider1.png' %}"
+                         alt="Banner 2">
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Categories Grid Section -->
+
     <section class="categories-section py-4">
         <div class="container">
             <div class="row g-3">
-                {% for date in cate_data %}
 
+                {% for c in cate %}
                     <div class="col-4 col-md-4 col-lg-3">
-                        <a href="{% url 'category' date.id %}" class="category-card">
+                        <a href="{% url 'category' c.id %}" class=" category-card">
                             <div class="category-image-wrapper">
-
                                 <img class="category-image"
-                                     src="{{ date.photo.url }}"
-                                     alt="Uy ruzg'or uchun maxsulotlar">
-
+                                     src="{{ c.photo.url }}"
+                                     alt="{{ c.title }}">
                             </div>
-                            <h6 class="category-title">{{ date.title }}</h6>
+                            <h6 class="category-title">{{ c.title }}</h6>
                         </a>
-
                     </div>
 
                 {% endfor %}
@@ -181,839 +43,92 @@
             </div>
         </div>
     </section>
-
-    <!-- Best Sellers Section -->
     <section class="products-section py-5 bg-light">
         <div class="container">
             <div class="section-header mb-4">
                 <h2 class="section-title">Eng ko'p sotiladigan</h2>
-                <a href="/category" class="view-all-link">
+                <a href="{% url 'shop' %}" class="view-all-link">
                     Barchasini ko'rish
                     <i class="icofont-rounded-right"></i>
                 </a>
             </div>
 
             <div class="row g-4">
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/3d-ekran" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2022/03/24/IMG_4657.webp" alt="3D EKRAN"
-                                     loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/3d-ekran">
-                                    3D EKRAN
+                {% for pro in pro_data %}
+                    <div class="owl-item" style="width: 346px;">
+                        <div class="item">
+                            <div class="product-card">
+                                <a href="{% url 'detail' pro.id %}"
+                                   class="product-image-link">
+                                    <div class="product-image-wrapper">
+                                        <img class="product-image" src="{{ pro.image.url }}"
+                                             alt="{{ pro.title }}"
+                                             loading="lazy">
+                                    </div>
                                 </a>
-                            </h6>
-                            <p class="product-price">57&nbsp;000 so'm</p>
+                                <div class="product-info">
+                                    <h6 class="product-title">
+                                        <a href="">
+                                            {{ pro.title }}
+                                        </a>
+                                    </h6>
+                                    <p class="product-price">{{ pro.price }} so'm</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
 
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/jonli-nasos" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2025/10/19/IMG_3446.webp"
-                                     alt="Jonli nasos"
-                                     loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/jonli-nasos">
-                                    Jonli nasos
-                                </a>
-                            </h6>
-                            <p class="product-price">59&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/video-regstrator-1" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image"
-                                     src="media/products/2023/08/09/022BDF1A-5B5B-4A54-B05F-ED75B5918C8E.webp"
-                                     alt="Video regstrator" loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/video-regstrator-1">
-                                    Video regstrator
-                                </a>
-                            </h6>
-                            <p class="product-price">209&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/kapilka-1" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2024/02/18/IMG_1320.webp" alt="Kapilka"
-                                     loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/kapilka-1">
-                                    Kapilka
-                                </a>
-                            </h6>
-                            <p class="product-price">69&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/moon-18" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2026/03/06/IMG_6162.jpeg" alt="MOON 18+"
-                                     loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/moon-18">
-                                    MOON 18+
-                                </a>
-                            </h6>
-                            <p class="product-price">89&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/mp3-led" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2025/10/19/IMG_3444.webp" alt="Mp3 LED"
-                                     loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/mp3-led">
-                                    Mp3 LED
-                                </a>
-                            </h6>
-                            <p class="product-price">91&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/placenta-extract-gel" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2022/07/26/IMG_20220726_083734_357.webp"
-                                     alt="Placenta extract gel" loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/placenta-extract-gel">
-                                    Placenta extract gel
-                                </a>
-                            </h6>
-                            <p class="product-price">99&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/ramazon-kundaligi-2025" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2025/02/14/IMG_8581.webp"
-                                     alt="Ramazon kundaligi" loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/ramazon-kundaligi-2025">
-                                    Ramazon kundaligi
-                                </a>
-                            </h6>
-                            <p class="product-price">55&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/feramon-atir" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2022/10/01/IMG_4771.webp"
-                                     alt="FERAMON ATIR"
-                                     loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/feramon-atir">
-                                    FERAMON ATIR
-                                </a>
-                            </h6>
-                            <p class="product-price">59&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/soatli-uzuk" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2025/11/19/IMG_4127.webp"
-                                     alt="Soatli uzuk"
-                                     loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/soatli-uzuk">
-                                    Soatli uzuk
-                                </a>
-                            </h6>
-                            <p class="product-price">69&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/nastoyka-oq-doglarga" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2025/11/18/IMG_4100.webp"
-                                     alt="Nastoyka oq dog’larga !!!" loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/nastoyka-oq-doglarga">
-                                    Nastoyka oq dog’larga !!!
-                                </a>
-                            </h6>
-                            <p class="product-price">119&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/quyoshdan-himoyalovchi-krem" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2024/05/15/IMG_1660.webp"
-                                     alt="Quyoshdan himoyalovchi krem (oq karopka)" loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/quyoshdan-himoyalovchi-krem">
-                                    Quyoshdan himoyalovchi krem (oq karopka)
-                                </a>
-                            </h6>
-                            <p class="product-price">59&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/keramik-isitgich" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2025/09/13/IMG_2672.webp"
-                                     alt="Keramik isitgich" loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/keramik-isitgich">
-                                    Keramik isitgich
-                                </a>
-                            </h6>
-                            <p class="product-price">359&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/kinoki-99" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image"
-                                     src="media/products/2022/06/17/IMG_20220612_200051_858_JOT2hay.webp" alt="Kinoki"
-                                     loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/kinoki-99">
-                                    Kinoki
-                                </a>
-                            </h6>
-                            <p class="product-price">47&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/self-foaming-oqartiruvchi-1-2" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2026/04/24/IMG_6576.jpeg"
-                                     alt="SELF FOAMING oqartiruvchi" loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/self-foaming-oqartiruvchi-1-2">
-                                    SELF FOAMING oqartiruvchi
-                                </a>
-                            </h6>
-                            <p class="product-price">59&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="product-card">
-                        <a href="/product-detail/dasturxon-uchun-soyabon" class="product-image-link">
-                            <div class="product-image-wrapper">
-                                <img class="product-image" src="media/products/2024/05/15/IMG_4615.webp"
-                                     alt="Dasturxon uchun soyabon" loading="lazy">
-                            </div>
-                        </a>
-                        <div class="product-info">
-                            <h6 class="product-title">
-                                <a href="/product-detail/dasturxon-uchun-soyabon">
-                                    Dasturxon uchun soyabon
-                                </a>
-                            </h6>
-                            <p class="product-price">79&nbsp;000 so'm</p>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
     </section>
 
-    <!-- New Products Section -->
     <section class="products-section py-5">
         <div class="container">
             <div class="section-header mb-4">
                 <h2 class="section-title">Yangi mahsulotlar</h2>
-                <a href="/category" class="view-all-link">
+                <a href="{% url 'shop' %}" class="view-all-link">
                     Barchasini ko'rish
                     <i class="icofont-rounded-right"></i>
                 </a>
             </div>
 
-            <div class="owl-carousel owl-carousel-category owl-theme" style="opacity: 1; display: block;">
+            <div class="owl-carousel owl-carousel-category owl-theme">
 
-                <div class="owl-wrapper-outer">
-                    <div class="owl-wrapper"
-                         style="width: 12400px; left: 0px; display: block; transition: 800ms; transform: translate3d(-4650px, 0px, 0px);">
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/2-talig-moshina-ventilyator" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/05/14/IMG_7283.jpeg"
-                                                 alt="2 talik moshina ventilyator" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/2-talig-moshina-ventilyator">
-                                                2 talik moshina ventilyator
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">89&nbsp;000 so'm</p>
-                                    </div>
+                {% for i in pro_data %}
+                    <div class="item">
+                        <div class="product-card">
+                            <a href="{% url 'detail' i.pk %}"
+                               class="product-image-link">
+                                <div class="product-image-wrapper">
+                                    <img class="product-image"
+                                         src="{{ i.image.url }}"
+                                         alt="2 talik moshina ventilyator"
+                                         loading="lazy">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/ayollar-uchun-granula" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/05/12/IMG_7259.jpeg"
-                                                 alt="Ayollar uchun Granula" loading="lazy">
-                                        </div>
+                            </a>
+                            <div class="product-info">
+                                <h6 class="product-title">
+                                    <a href="{% url 'detail' i.pk %}">
+                                        {{ i.title }}
                                     </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/ayollar-uchun-granula">
-                                                Ayollar uchun Granula
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">69&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/tonalniy-stik-1" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/05/11/IMG_7237.webp"
-                                                 alt="Tonalniy Stik" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/tonalniy-stik-1">
-                                                Tonalniy Stik
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">89&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/frangarse-asvijitel" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/05/09/IMG_7223.jpeg"
-                                                 alt="Frangarse asvijitel" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/frangarse-asvijitel">
-                                                Frangarse asvijitel
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">129&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/baxtga-yullanma" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/05/07/IMG_7181.jpeg"
-                                                 alt="Baxtga yullanma" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/baxtga-yullanma">
-                                                Baxtga yullanma
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">99&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/13-xil-5-gr-li-atrlar-tuplami" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/05/01/IMG_7096.webp"
-                                                 alt="13 xil 5 gramli  atrlar tuplami" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/13-xil-5-gr-li-atrlar-tuplami">
-                                                13 xil 5 gramli atrlar tuplami
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">99&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/osmali-shanoun" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/28/IMG_7081.webp"
-                                                 alt="Osmali shanpun" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/osmali-shanoun">
-                                                Osmali shanpun
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">79&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/elastic-firming-retinol" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/28/IMG_7079.jpeg"
-                                                 alt="Elastic firming retinol" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/elastic-firming-retinol">
-                                                Elastic firming retinol
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">69&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/bolalar-uchun-mujizaviy-sharcha"
-                                       class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/26/IMG_7040.jpeg"
-                                                 alt="Bolalar uchun mujizaviy sharcha" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/bolalar-uchun-mujizaviy-sharcha">
-                                                Bolalar uchun mujizaviy sharcha
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">59&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/keratin-soch-spreyi" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/25/IMG_7023.jpeg"
-                                                 alt="Keratin soch spreyi" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/keratin-soch-spreyi">
-                                                Keratin soch spreyi
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">69&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/nicotex" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/25/IMG_7018.jpeg"
-                                                 alt="Nicotex" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/nicotex">
-                                                Nicotex
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">99&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/self-foaming-oqartiruvchi-1-2" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/24/IMG_6576.jpeg"
-                                                 alt="SELF FOAMING oqartiruvchi" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/self-foaming-oqartiruvchi-1-2">
-                                                SELF FOAMING oqartiruvchi
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">59&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/varicose-crem" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/22/IMG_6979.jpeg"
-                                                 alt="Varicose crem" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/varicose-crem">
-                                                Varicose crem
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">99&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/pheramone" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/20/IMG_6446.jpeg"
-                                                 alt="Pheramone" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/pheramone">
-                                                Pheramone
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">59&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/sevishganlar-uchun-vibratsiyasz-braslet"
-                                       class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/20/IMG_6963.jpeg"
-                                                 alt="Sevishganlar uchun vibratsiyasz braslet" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/sevishganlar-uchun-vibratsiyasz-braslet">
-                                                Sevishganlar uchun vibratsiyasz braslet
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">75&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/trendagi-gentra" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/19/IMG_6951.jpeg"
-                                                 alt="Trendagi Gentra" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/trendagi-gentra">
-                                                Trendagi Gentra
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">109&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/magic-body-fermin-oil" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/19/IMG_6943.jpeg"
-                                                 alt="Magic Body Fermin Oil" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/magic-body-fermin-oil">
-                                                Magic Body Fermin Oil
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">99&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/360-musiqali-moshina" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/19/IMG_6941.jpeg"
-                                                 alt="360 musiqali moshina" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/360-musiqali-moshina">
-                                                360 musiqali moshina
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">99&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/smart-vifi-camera" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/19/IMG_6933.jpeg"
-                                                 alt="Smart Vifi Camera" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/smart-vifi-camera">
-                                                Smart Vifi Camera
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">89&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="owl-item" style="width: 310px;">
-                            <div class="item">
-                                <div class="product-card">
-                                    <a href="/product-detail/feramon-49" class="product-image-link">
-                                        <div class="product-image-wrapper">
-                                            <img class="product-image" src="media/products/2026/04/19/IMG_6932.jpeg"
-                                                 alt="Feramon 49" loading="lazy">
-                                        </div>
-                                    </a>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="/product-detail/feramon-49">
-                                                Feramon 49
-                                            </a>
-                                        </h6>
-                                        <p class="product-price">49&nbsp;000 so'm</p>
-                                    </div>
-                                </div>
+                                </h6>
+                                <p class="product-price">{{ i.price }} so'm</p>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
 
 
-                <div class="owl-controls clickable">
-                    <div class="owl-buttons">
-                        <div class="owl-prev"><i class="icofont icofont-thin-left"></i></div>
-                        <div class="owl-next"><i class="icofont icofont-thin-right"></i></div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
 
-    <style>
-        .modern-footer {
-            background: white;
-            border-top: 1px solid #e2e8f0;
-            padding: 0;
-            margin-top: 60px;
-        }
 
-        .footer-copyright {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 24px 0;
-            color: white;
-        }
-
-        .copyright-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .copyright-text {
-            margin: 0;
-            font-size: 14px;
-        }
-
-        .copyright-text a {
-            color: white;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .copyright-text a:hover {
-            opacity: 0.8;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            opacity: 0.8;
-        }
-
-        @media (max-width: 768px) {
-            .modern-footer {
-                margin-top: 40px;
-            }
-
-            .footer-copyright {
-                padding: 20px 0;
-            }
-
-            .copyright-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-links {
-                justify-content: center;
-            }
-        }
-    </style>
 
 {% endblock %}
+
+
+

@@ -144,6 +144,7 @@
 </head>
 <body>
 
+{% include 'Error.html' %}
 
 <style>
     .modern-header {
@@ -390,16 +391,16 @@
                         <div class="dropdown-menu mega-dropdown-modern">
                             <div class="row">
                                 <div class="col-lg-2 col-md-4 col-sm-6">
-                                    <div class="mega-list-modern">
-                                        {% for cate in cate_data %}
 
-                                            <a href="{% url 'category' cate.id %}">
-                                                {{ cate.name }}
-                                            </a>
+                                        {% for a in cate %}
+                                            <div class="mega-list-modern">
+                                            <a href="{% url 'category' a.id %}" >
+                                                {{ a.title }}
+                                            </a></div>
                                         {% endfor %}
 
 
-                                    </div>
+
                                 </div>
                                 <div class="col-lg-2 col-md-4 col-sm-6">
                                     <div class="mega-list-modern">
@@ -446,7 +447,7 @@
                             <a class="nav-link nav-link-modern dropdown-toggle"
                                href="https://alijahon.uz/admin_page/market#" data-toggle="dropdown"
                                aria-expanded="false">
-                                <img src="{% static 'admin_market/nouser.png' %}" alt="" class="profile-pic-modern">
+                                <img src="{% static 'Admin_market/nouser.png' %}" alt="" class="profile-pic-modern">
                                 <span class="ml-2"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown-modern"
@@ -461,10 +462,10 @@
 
                                 <div class="dropdown-divider" style="margin: 8px 0;"></div>
 
-{#                                <a class="dropdown-item dropdown-item-modern" href="{% url 'logout' %}">#}
-{#                                    <i class="icofont-logout"></i>#}
-{#                                    <span>Chiqish</span>#}
-{#                                </a>#}
+                                <a class="dropdown-item dropdown-item-modern" href="{% url 'logout' %}">
+                                    <i class="icofont-logout"></i>
+                                    <span>Chiqish</span>
+                                </a>
                             </div>
                         </li>
                     {% else %}
@@ -474,6 +475,7 @@
                                 <i class="icofont-ui-user"></i> Kirish
                             </a>
                         </li>
+
                     {% endif %}
 
 
@@ -513,7 +515,7 @@
                             <div class="login-modal-right p-4">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="login-form" role="tabpanel">
-                                        <form action="{% url 'auth' %}" method="post">
+                                        <form action="{% url 'login' %}" method="post">
                                             {% csrf_token %}
                                             <h5 class="heading-design-h5 text-dark">Login</h5>
                                             <fieldset class="form-group mt-4">
@@ -541,7 +543,7 @@
                                         </form>
                                     </div>
                                     <div class="tab-pane" id="register" role="tabpanel">
-                                        <form action="{% url 'auth' %}" method="post">
+                                        <form action="{% url 'register' %}" method="post">
                                             {% csrf_token %}
                                             <h5 class="heading-design-h5 text-dark">Register</h5>
                                             <fieldset class="form-group mt-4">
@@ -583,46 +585,8 @@
         </div>
     </div>
 </div>
-
 <script src="{% static 'apps/jquery.min.js' %}"></script>
 <script src="{% static 'apps/jquery.inputmask.bundle.js' %}"></script>
-<script>
-    $(document).ready(function () {
-
-        // Modal ochish
-        $('[data-toggle="modal"]').on('click', function (e) {
-            e.preventDefault();
-            var target = $(this).attr('data-target');
-            $(target).css('display', 'block').addClass('show');
-            $('body').addClass('modal-open');
-            $('<div class="modal-backdrop fade show"></div>').appendTo('body');
-        });
-
-        // Modal yopish
-        $(document).on('click', '[data-dismiss="modal"], .modal-backdrop', function () {
-            $('.modal').css('display', 'none').removeClass('show');
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-        });
-
-        // Tab almashtirish (Login / Register)
-        $(document).on('click', '[data-toggle="tab"]', function (e) {
-            e.preventDefault();
-            var target = $(this).attr('href');
-
-            // Barcha tab linklardan active olib tashlash
-            $(this).closest('[role="tablist"]').find('.nav-link-login').removeClass('active');
-            $(this).addClass('active');
-
-            // Barcha tab-pane larni yashirish
-            $(this).closest('.modal').find('.tab-pane').removeClass('active show');
-
-            // Kerakli tab ni ko'rsatish
-            $(this).closest('.modal').find(target).addClass('active show');
-        });
-
-    });
-</script>
 <script>
     $('#phone-mask').inputmask({
         "mask": "+\\9\\98(99) 999-99-99"
@@ -727,6 +691,8 @@
     </div>
 </footer>
 
+<script src="{% static 'apps/jquery.min.js' %}"></script>
+<script src="{% static 'apps/bootstrap.bundle.min.js' %}"></script>
 
 <script src="{% static 'apps/custom.js' %}"></script>
 <script src="{% static 'apps/jqBootstrapValidation.js' %}"></script>

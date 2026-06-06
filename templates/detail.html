@@ -1,0 +1,128 @@
+{% extends 'base/base.html' %}
+
+
+{% block body %}
+    {% load static %}
+    <meta name="author" content="">
+    <title>Quyoshdan himoyalovchi krem (oq karopka) - Alijahon.uz</title>
+    <link rel="icon" type="image/png" href="{% static 'detail/alijahon.png' %}">
+    <link href="{% static 'detail/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'detail/select2-bootstrap.css' %}" rel="stylesheet"/>
+    <link href="{% static 'detail/select2.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'detail/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'detail/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'detail/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'detail/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'detail/owl.theme.css' %}">
+
+
+    <section class="py-5 shop-single bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="shop-detail-left">
+                        <div class="border rounded shadow-sm bg-white p-3 text-center mb-3">
+                            <img alt="Mahsulot rasmi" src="{{ data.image.url }}" class="img-fluid rounded"
+                                 style="max-height: 450px; object-fit: contain;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="shop-detail-right">
+                        <div class="border rounded shadow-sm bg-white p-4">
+                            <div class="product-name">
+                                <h2>{{ data.title }}</h2>
+                            </div>
+                            <div class="price-box">
+                                <h5>
+
+                                    <span class="product-price text-danger"
+                                          id="dynamic-price">{{ data.price }} so'm</span>
+
+                                </h5>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="product-variation">
+                                <form method="post" id="order-form">
+                                    <input type="hidden" name="csrfmiddlewaretoken"
+                                           value="QSTAv96Sapk6c5GGNSVkvreQr4w5koGqNXR35mXV5TKUK2IL0xmeEdGhcxtdrBU7">
+                                    <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                                    <div class="controls">
+                                        <label>Ism <span class="text-danger">*</span></label>
+                                        <input type="text"
+                                               placeholder="Ism"
+                                               class="form-control"
+                                               name="full_name"
+                                               required
+                                               maxlength="50"
+                                               pattern="^[a-zA-Z0-9\sа-яА-ЯёЁўЎқҚғҒҳҲ]+$"
+                                               oninput="this.value = this.value.replace(/[^a-zA-Z0-9\sа-яА-ЯёЁўЎқҚғҒҳҲ]/g, '')"
+                                               title="Faqat harf va raqam kiritish mumkin">
+                                        <p class="help-block"></p>
+                                    </div>
+                                    <div class="controls">
+                                        <label>Telefon <span class="text-danger">*</span></label>
+                                        <input type="text" placeholder="Telefon" class="form-control"
+                                               id="phone-mask-two"
+                                               required name="phone_number">
+                                        <p class="help-block"></p>
+                                    </div>
+
+
+                                    <label for="quantity">Soni :</label>
+                                    <select name="quantity" id="quantity">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                    </select>
+                                    <span class="float-right">
+                              <button type="submit" class="btn btn-primary btn-lg">&nbsp;&nbsp;&nbsp; <i
+                                      class="icofont icofont-shopping-cart"></i> Buyurtma berish &nbsp;&nbsp;&nbsp;</button>
+                              </span>
+                                </form>
+                            </div>
+                            Yetkazib berish O'zbekiston bo'ylab 30 000 so'm
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="det" class="pb-5 pt-0 shop-single-detail bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="rounded shadow-sm bg-white">
+                        <ul class="nav nav-pills p-3" id="pills-tab" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" id="pills-home-tab" data-toggle="pill"
+                                                    href="#pills-home" role="tab" aria-controls="pills-home"
+                                                    aria-selected="true">Batafsil</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content p-4 border-top" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                 aria-labelledby="pills-home-tab">
+                                <p>
+                                <p>{{ data.desc }}</p>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;To'lovni mahsulotni qo'lingizga olganda qilasiz</p>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;O‘zbekiston bo‘ylab yetkazib berish xizmati mavjud</p>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

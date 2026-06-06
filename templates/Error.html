@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<style>
+    @keyframes ultraIn {
+        0% {
+            opacity: 0;
+            transform: translateX(80px) scale(0.8) rotateY(15deg);
+        }
+        55% {
+            transform: translateX(-8px) scale(1.03) rotateY(-2deg);
+        }
+        75% {
+            transform: translateX(4px) scale(0.99) rotateY(0.5deg);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0) scale(1) rotateY(0);
+        }
+    }
+
+    @keyframes ultraOut {
+        0% {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            max-height: 120px;
+            margin-bottom: 11px;
+        }
+        40% {
+            transform: translateX(20px) scale(0.97);
+            opacity: 0.6;
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(100%) scale(0.85);
+            max-height: 0;
+            margin-bottom: 0;
+            padding: 0;
+        }
+    }
+
+    @keyframes progressTick {
+        from {
+            width: 100%;
+        }
+        to {
+            width: 0%;
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%) skewX(-12deg);
+        }
+        100% {
+            transform: translateX(250%) skewX(-12deg);
+        }
+    }
+
+    @keyframes iconPop {
+        0% {
+            transform: scale(0) rotate(-30deg);
+            opacity: 0;
+        }
+        60% {
+            transform: scale(1.25) rotate(8deg);
+        }
+        80% {
+            transform: scale(0.92) rotate(-3deg);
+        }
+        100% {
+            transform: scale(1) rotate(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes tagSlide {
+        0% {
+            opacity: 0;
+            transform: translateY(-6px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes textFade {
+        0% {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes dotBlink {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.3;
+        }
+    }
+
+    .n-stack {
+        position: fixed;
+        top: 22px;
+        right: 22px;
+        z-index: 99999;
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        max-width: 380px;
+        width: calc(100vw - 44px);
+        pointer-events: none;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .n-card {
+        pointer-events: all;
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        border: 1px solid #1e1e2e;
+        background: #0e0e18;
+        animation: ultraIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        transition: transform 0.2s ease;
+    }
+
+    .n-card:hover {
+        transform: translateY(-3px) scale(1.018);
+    }
+
+    .n-card:active {
+        transform: scale(0.97);
+    }
+
+    .n-card.dismissing {
+        animation: ultraOut 0.45s cubic-bezier(0.4, 0, 1, 1) forwards;
+    }
+
+    .n-shimmer {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        border-radius: 16px;
+    }
+
+    .n-shimmer::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+        animation: shimmer 2.8s ease-in-out 0.8s infinite;
+    }
+
+    .n-glow {
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+        border-radius: 17px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+    }
+
+    .n-card:hover .n-glow {
+        opacity: 1;
+    }
+
+    .n-stripe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        border-radius: 16px 0 0 16px;
+    }
+
+    .n-body {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+        padding: 16px 16px 13px 19px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .n-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+        animation: iconPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+    }
+
+    .n-icon::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .n-card:hover .n-icon::after {
+        opacity: 1;
+    }
+
+    .n-live-dot {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 1.5px solid #0e0e18;
+        animation: dotBlink 1.8s ease-in-out infinite;
+    }
+
+    .n-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .n-tag {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        animation: tagSlide 0.4s ease 0.35s both;
+    }
+
+    .n-tag-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .n-msg {
+        font-size: 13.5px;
+        color: #b8b8cc;
+        line-height: 1.55;
+        animation: textFade 0.4s ease 0.42s both;
+    }
+
+    .n-time {
+        font-size: 10px;
+        color: #3a3a50;
+        margin-top: 5px;
+        animation: textFade 0.4s ease 0.48s both;
+    }
+
+    .n-close {
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: #2a2a40;
+        flex-shrink: 0;
+        transition: background 0.15s, color 0.15s;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    .n-card:hover .n-close {
+        background: rgba(255, 255, 255, 0.06);
+        color: #606080;
+    }
+
+    .n-footer {
+        padding: 0 4px 4px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .n-progress-bg {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0 0 13px 13px;
+        overflow: hidden;
+    }
+
+    .n-bar {
+        height: 100%;
+        border-radius: 2px;
+        animation: progressTick 5s linear forwards;
+    }
+
+    .nc-success .n-stripe {
+        background: linear-gradient(180deg, #00dc82, #00a86b);
+    }
+
+    .nc-success .n-glow {
+        box-shadow: 0 0 0 1px rgba(0, 220, 130, 0.25);
+    }
+
+    .nc-success .n-icon {
+        background: rgba(0, 220, 130, 0.1);
+        border: 1px solid rgba(0, 220, 130, 0.2);
+    }
+
+    .nc-success .n-live-dot {
+        background: #00dc82;
+    }
+
+    .nc-success .n-tag {
+        color: #00dc82;
+    }
+
+    .nc-success .n-tag-dot {
+        background: #00dc82;
+    }
+
+    .nc-success .n-bar {
+        background: linear-gradient(90deg, #00dc82, #00a86b);
+    }
+
+    .nc-error .n-stripe, .nc-danger .n-stripe {
+        background: linear-gradient(180deg, #ff3c5e, #c8203d);
+    }
+
+    .nc-error .n-glow, .nc-danger .n-glow {
+        box-shadow: 0 0 0 1px rgba(255, 60, 94, 0.25);
+    }
+
+    .nc-error .n-icon, .nc-danger .n-icon {
+        background: rgba(255, 60, 94, 0.1);
+        border: 1px solid rgba(255, 60, 94, 0.2);
+    }
+
+    .nc-error .n-live-dot, .nc-danger .n-live-dot {
+        background: #ff3c5e;
+    }
+
+    .nc-error .n-tag, .nc-danger .n-tag {
+        color: #ff3c5e;
+    }
+
+    .nc-error .n-tag-dot, .nc-danger .n-tag-dot {
+        background: #ff3c5e;
+    }
+
+    .nc-error .n-bar, .nc-danger .n-bar {
+        background: linear-gradient(90deg, #ff3c5e, #c8203d);
+    }
+
+    .nc-warning .n-stripe {
+        background: linear-gradient(180deg, #ffd700, #e5a800);
+    }
+
+    .nc-warning .n-glow {
+        box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.25);
+    }
+
+    .nc-warning .n-icon {
+        background: rgba(255, 215, 0, 0.09);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .nc-warning .n-live-dot {
+        background: #ffd700;
+    }
+
+    .nc-warning .n-tag {
+        color: #d4a800;
+    }
+
+    .nc-warning .n-tag-dot {
+        background: #ffd700;
+    }
+
+    .nc-warning .n-bar {
+        background: linear-gradient(90deg, #ffd700, #e5a800);
+    }
+
+    .nc-info .n-stripe {
+        background: linear-gradient(180deg, #7b2fff, #5a1fc8);
+    }
+
+    .nc-info .n-glow {
+        box-shadow: 0 0 0 1px rgba(123, 47, 255, 0.25);
+    }
+
+    .nc-info .n-icon {
+        background: rgba(123, 47, 255, 0.1);
+        border: 1px solid rgba(123, 47, 255, 0.2);
+    }
+
+    .nc-info .n-live-dot {
+        background: #7b2fff;
+    }
+
+    .nc-info .n-tag {
+        color: #a56fff;
+    }
+
+    .nc-info .n-tag-dot {
+        background: #7b2fff;
+    }
+
+    .nc-info .n-bar {
+        background: linear-gradient(90deg, #7b2fff, #5a1fc8);
+    }
+
+    .nc-debug .n-stripe {
+        background: linear-gradient(180deg, #6b6b80, #4a4a60);
+    }
+
+    .nc-debug .n-glow {
+        box-shadow: 0 0 0 1px rgba(107, 107, 128, 0.2);
+    }
+
+    .nc-debug .n-icon {
+        background: rgba(107, 107, 128, 0.1);
+        border: 1px solid rgba(107, 107, 128, 0.2);
+    }
+
+    .nc-debug .n-live-dot {
+        background: #6b6b80;
+    }
+
+    .nc-debug .n-tag {
+        color: #7070a0;
+    }
+
+    .nc-debug .n-tag-dot {
+        background: #6b6b80;
+    }
+
+    .nc-debug .n-bar {
+        background: linear-gradient(90deg, #6b6b80, #4a4a60);
+    }
+
+    @media (max-width: 480px) {
+        .n-stack {
+            top: 12px;
+            right: 12px;
+            width: calc(100vw - 24px);
+        }
+
+        .n-body {
+            padding: 13px 14px 12px 16px;
+            gap: 10px;
+        }
+
+        .n-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        .n-msg {
+            font-size: 13px;
+        }
+    }
+</style>
+<body>
+{% if messages %}
+    <div class="n-stack" id="nStack">{% for message in messages %}{% if message.tags == 'success' %}
+        <div class="n-card nc-success" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">✅
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Muvaffaqiyat
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% elif message.tags == 'error' or message.tags == 'danger' %}
+        <div class="n-card nc-error" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">⛔
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Xatolik
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% elif message.tags == 'warning' %}
+        <div class="n-card nc-warning" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">⚠️
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Ogohlantirish
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% elif message.tags == 'info' %}
+        <div class="n-card nc-info" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">💡
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Ma'lumot
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% elif message.tags == 'debug' %}
+        <div class="n-card nc-debug" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">🔧
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Debug
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="n-card nc-info" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">📌
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        {{ message.tags }}</div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% endif %}{% endfor %}
+    </div>
+    <script>
+        function nD(c) {
+            if (!c || c.classList.contains('dismissing')) return;
+            c.classList.add('dismissing');
+            setTimeout(function () {
+                c.remove();
+                var s = document.getElementById('nStack');
+                if (s && !s.children.length) s.remove();
+            }, 460);
+        }
+
+        (function () {
+            var cs = document.querySelectorAll('.n-card');
+            cs.forEach(function (c, i) {
+                setTimeout(function () {
+                    if (c.isConnected) nD(c);
+                }, 5200 + i * 380);
+            });
+        })();
+    </script>
+{% endif %}
+</body>
+</html><!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<style>
+    @keyframes ultraIn {
+        0% {
+            opacity: 0;
+            transform: translateX(80px) scale(0.8) rotateY(15deg);
+        }
+        55% {
+            transform: translateX(-8px) scale(1.03) rotateY(-2deg);
+        }
+        75% {
+            transform: translateX(4px) scale(0.99) rotateY(0.5deg);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0) scale(1) rotateY(0);
+        }
+    }
+
+    @keyframes ultraOut {
+        0% {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            max-height: 120px;
+            margin-bottom: 11px;
+        }
+        40% {
+            transform: translateX(20px) scale(0.97);
+            opacity: 0.6;
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(100%) scale(0.85);
+            max-height: 0;
+            margin-bottom: 0;
+            padding: 0;
+        }
+    }
+
+    @keyframes progressTick {
+        from {
+            width: 100%;
+        }
+        to {
+            width: 0%;
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%) skewX(-12deg);
+        }
+        100% {
+            transform: translateX(250%) skewX(-12deg);
+        }
+    }
+
+    @keyframes iconPop {
+        0% {
+            transform: scale(0) rotate(-30deg);
+            opacity: 0;
+        }
+        60% {
+            transform: scale(1.25) rotate(8deg);
+        }
+        80% {
+            transform: scale(0.92) rotate(-3deg);
+        }
+        100% {
+            transform: scale(1) rotate(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes tagSlide {
+        0% {
+            opacity: 0;
+            transform: translateY(-6px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes textFade {
+        0% {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes dotBlink {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.3;
+        }
+    }
+
+    .n-stack {
+        position: fixed;
+        top: 22px;
+        right: 22px;
+        z-index: 99999;
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        max-width: 380px;
+        width: calc(100vw - 44px);
+        pointer-events: none;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .n-card {
+        pointer-events: all;
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        border: 1px solid #1e1e2e;
+        background: #0e0e18;
+        animation: ultraIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        transition: transform 0.2s ease;
+    }
+
+    .n-card:hover {
+        transform: translateY(-3px) scale(1.018);
+    }
+
+    .n-card:active {
+        transform: scale(0.97);
+    }
+
+    .n-card.dismissing {
+        animation: ultraOut 0.45s cubic-bezier(0.4, 0, 1, 1) forwards;
+    }
+
+    .n-shimmer {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        border-radius: 16px;
+    }
+
+    .n-shimmer::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+        animation: shimmer 2.8s ease-in-out 0.8s infinite;
+    }
+
+    .n-glow {
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+        border-radius: 17px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+    }
+
+    .n-card:hover .n-glow {
+        opacity: 1;
+    }
+
+    .n-stripe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        border-radius: 16px 0 0 16px;
+    }
+
+    .n-body {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+        padding: 16px 16px 13px 19px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .n-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+        animation: iconPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+    }
+
+    .n-icon::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .n-card:hover .n-icon::after {
+        opacity: 1;
+    }
+
+    .n-live-dot {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 1.5px solid #0e0e18;
+        animation: dotBlink 1.8s ease-in-out infinite;
+    }
+
+    .n-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .n-tag {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        animation: tagSlide 0.4s ease 0.35s both;
+    }
+
+    .n-tag-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .n-msg {
+        font-size: 13.5px;
+        color: #b8b8cc;
+        line-height: 1.55;
+        animation: textFade 0.4s ease 0.42s both;
+    }
+
+    .n-time {
+        font-size: 10px;
+        color: #3a3a50;
+        margin-top: 5px;
+        animation: textFade 0.4s ease 0.48s both;
+    }
+
+    .n-close {
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: #2a2a40;
+        flex-shrink: 0;
+        transition: background 0.15s, color 0.15s;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    .n-card:hover .n-close {
+        background: rgba(255, 255, 255, 0.06);
+        color: #606080;
+    }
+
+    .n-footer {
+        padding: 0 4px 4px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .n-progress-bg {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0 0 13px 13px;
+        overflow: hidden;
+    }
+
+    .n-bar {
+        height: 100%;
+        border-radius: 2px;
+        animation: progressTick 5s linear forwards;
+    }
+
+    .nc-success .n-stripe {
+        background: linear-gradient(180deg, #00dc82, #00a86b);
+    }
+
+    .nc-success .n-glow {
+        box-shadow: 0 0 0 1px rgba(0, 220, 130, 0.25);
+    }
+
+    .nc-success .n-icon {
+        background: rgba(0, 220, 130, 0.1);
+        border: 1px solid rgba(0, 220, 130, 0.2);
+    }
+
+    .nc-success .n-live-dot {
+        background: #00dc82;
+    }
+
+    .nc-success .n-tag {
+        color: #00dc82;
+    }
+
+    .nc-success .n-tag-dot {
+        background: #00dc82;
+    }
+
+    .nc-success .n-bar {
+        background: linear-gradient(90deg, #00dc82, #00a86b);
+    }
+
+    .nc-error .n-stripe, .nc-danger .n-stripe {
+        background: linear-gradient(180deg, #ff3c5e, #c8203d);
+    }
+
+    .nc-error .n-glow, .nc-danger .n-glow {
+        box-shadow: 0 0 0 1px rgba(255, 60, 94, 0.25);
+    }
+
+    .nc-error .n-icon, .nc-danger .n-icon {
+        background: rgba(255, 60, 94, 0.1);
+        border: 1px solid rgba(255, 60, 94, 0.2);
+    }
+
+    .nc-error .n-live-dot, .nc-danger .n-live-dot {
+        background: #ff3c5e;
+    }
+
+    .nc-error .n-tag, .nc-danger .n-tag {
+        color: #ff3c5e;
+    }
+
+    .nc-error .n-tag-dot, .nc-danger .n-tag-dot {
+        background: #ff3c5e;
+    }
+
+    .nc-error .n-bar, .nc-danger .n-bar {
+        background: linear-gradient(90deg, #ff3c5e, #c8203d);
+    }
+
+    .nc-warning .n-stripe {
+        background: linear-gradient(180deg, #ffd700, #e5a800);
+    }
+
+    .nc-warning .n-glow {
+        box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.25);
+    }
+
+    .nc-warning .n-icon {
+        background: rgba(255, 215, 0, 0.09);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .nc-warning .n-live-dot {
+        background: #ffd700;
+    }
+
+    .nc-warning .n-tag {
+        color: #d4a800;
+    }
+
+    .nc-warning .n-tag-dot {
+        background: #ffd700;
+    }
+
+    .nc-warning .n-bar {
+        background: linear-gradient(90deg, #ffd700, #e5a800);
+    }
+
+    .nc-info .n-stripe {
+        background: linear-gradient(180deg, #7b2fff, #5a1fc8);
+    }
+
+    .nc-info .n-glow {
+        box-shadow: 0 0 0 1px rgba(123, 47, 255, 0.25);
+    }
+
+    .nc-info .n-icon {
+        background: rgba(123, 47, 255, 0.1);
+        border: 1px solid rgba(123, 47, 255, 0.2);
+    }
+
+    .nc-info .n-live-dot {
+        background: #7b2fff;
+    }
+
+    .nc-info .n-tag {
+        color: #a56fff;
+    }
+
+    .nc-info .n-tag-dot {
+        background: #7b2fff;
+    }
+
+    .nc-info .n-bar {
+        background: linear-gradient(90deg, #7b2fff, #5a1fc8);
+    }
+
+    .nc-debug .n-stripe {
+        background: linear-gradient(180deg, #6b6b80, #4a4a60);
+    }
+
+    .nc-debug .n-glow {
+        box-shadow: 0 0 0 1px rgba(107, 107, 128, 0.2);
+    }
+
+    .nc-debug .n-icon {
+        background: rgba(107, 107, 128, 0.1);
+        border: 1px solid rgba(107, 107, 128, 0.2);
+    }
+
+    .nc-debug .n-live-dot {
+        background: #6b6b80;
+    }
+
+    .nc-debug .n-tag {
+        color: #7070a0;
+    }
+
+    .nc-debug .n-tag-dot {
+        background: #6b6b80;
+    }
+
+    .nc-debug .n-bar {
+        background: linear-gradient(90deg, #6b6b80, #4a4a60);
+    }
+
+    @media (max-width: 480px) {
+        .n-stack {
+            top: 12px;
+            right: 12px;
+            width: calc(100vw - 24px);
+        }
+
+        .n-body {
+            padding: 13px 14px 12px 16px;
+            gap: 10px;
+        }
+
+        .n-icon {
+            width: 36px;
+            height: 36px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+
+        .n-msg {
+            font-size: 13px;
+        }
+    }
+</style>
+<body>
+{% if messages %}
+    <div class="n-stack" id="nStack">{% for message in messages %}{% if message.tags == 'success' %}
+        <div class="n-card nc-success" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">✅
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Muvaffaqiyat
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% elif message.tags == 'error' or message.tags == 'danger' %}
+        <div class="n-card nc-error" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">⛔
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Xatolik
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% elif message.tags == 'warning' %}
+        <div class="n-card nc-warning" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">⚠️
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Ogohlantirish
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% elif message.tags == 'info' %}
+        <div class="n-card nc-info" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">💡
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Ma'lumot
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% elif message.tags == 'debug' %}
+        <div class="n-card nc-debug" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">🔧
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        Debug
+                    </div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="n-card nc-info" onclick="nD(this)">
+            <div class="n-shimmer"></div>
+            <div class="n-glow"></div>
+            <div class="n-stripe"></div>
+            <div class="n-body">
+                <div class="n-icon">📌
+                    <div class="n-live-dot"></div>
+                </div>
+                <div class="n-text">
+                    <div class="n-tag">
+                        <div class="n-tag-dot"></div>
+                        {{ message.tags }}</div>
+                    <div class="n-msg">{{ message }}</div>
+                    <div class="n-time">Hozir</div>
+                </div>
+                <button class="n-close" onclick="nD(this.closest('.n-card'));event.stopPropagation()">✕</button>
+            </div>
+            <div class="n-footer">
+                <div class="n-progress-bg">
+                    <div class="n-bar"></div>
+                </div>
+            </div>
+        </div>
+    {% endif %}{% endfor %}
+    </div>
+    <script>
+        function nD(c) {
+            if (!c || c.classList.contains('dismissing')) return;
+            c.classList.add('dismissing');
+            setTimeout(function () {
+                c.remove();
+                var s = document.getElementById('nStack');
+                if (s && !s.children.length) s.remove();
+            }, 460);
+        }
+
+        (function () {
+            var cs = document.querySelectorAll('.n-card');
+            cs.forEach(function (c, i) {
+                setTimeout(function () {
+                    if (c.isConnected) nD(c);
+                }, 5200 + i * 380);
+            });
+        })();
+    </script>
+{% endif %}
+</body>
+</html>
