@@ -173,15 +173,12 @@
                             </div>
                             <div class="filter-body" id="filterBody">
                                 <nav class="categories-nav">
-
-                                    {% for c in cate %}
-                                        <a href="{% url 'category' c.pk %}" class="category-link ">
+                                    {% for cate in cate_date %}
+                                        <a href="{% url 'category' cate.pk %}" class="category-link ">
+                                            <span class="category-name">{{ cate.title }}</span>
                                             <i class="icofont-rounded-right"></i>
-                                            <span class="category-name">{{ c.title }}</span>
                                         </a>
                                     {% endfor %}
-
-
                                 </nav>
                             </div>
                         </div>
@@ -199,7 +196,7 @@
                                 <i class="icofont-thin-right"></i>
                             </span>
                             {% if cate_name %}
-                                <span class="breadcrumb-current">{{ cate_name.name }}</span>
+                                <span class="breadcrumb-current">{{ cate_name.title }}</span>
 
                             {% else %}
                                 <span class="breadcrumb-current">Barchasi</span>
@@ -214,29 +211,59 @@
 
                     <div class="products-grid">
                         <div class="row g-3">
+
                             {% for pro in pro_data %}
                                 <div class="col-6 col-md-4">
-                                    <div class="product-card">
-                                        <a href="{% url 'detail' pro.pk %}"
-                                           class="product-image-link">
+                                    <div class="product-card" style="position: relative;">
+
+                                        {% if request.user.is_authenticated %}
+                                            <form method="post" action="{% url 'wishlist_add' pro.pk %}"
+                                                  style="position: absolute; top: 8px; right: 8px; z-index: 10;">
+                                                {% csrf_token %}
+                                                <button type="submit"
+                                                        style="background: white; border: none; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center;">
+                                                    {% if pro.pk in liked_products %}❤️{% else %}🤍{% endif %}
+                                                </button>
+                                            </form>
+                                        {% endif %}
+
+                                        <a href="{% url 'detail' pro.pk %}" class="product-image-link">
                                             <div class="product-image-wrapper">
-                                                <img src="{{ pro.image.url }}" class="product-image"
-                                                     loading="lazy">
+                                                <img src="{{ pro.image.url }}" class="product-image" loading="lazy">
                                             </div>
                                         </a>
                                         <div class="product-info">
                                             <h6 class="product-title">
-                                                <a href="{% url 'detail' pro.pk %}">
-                                                    {{ pro.title }}
-                                                </a>
+                                                <a href="">{{ pro.title }}</a>
                                             </h6>
-                                            <p class="product-price">
-                                                {{ pro.price }} so'm
-                                            </p>
+                                            <p class="product-price">{{ pro.price }} so'm</p>
                                         </div>
                                     </div>
                                 </div>
                             {% endfor %}
+                            {#                            {% for pro in pro_data %}#}
+                            {#                                <div class="col-6 col-md-4">#}
+                            {#                                    <div class="product-card">#}
+                            {#                                        <a href="{% url 'detail' pro.pk %}"#}
+                            {#                                           class="product-image-link">#}
+                            {#                                            <div class="product-image-wrapper">#}
+                            {#                                                <img src="{{ pro.image.url }}" class="product-image"#}
+                            {#                                                     loading="lazy">#}
+                            {#                                            </div>#}
+                            {#                                        </a>#}
+                            {#                                        <div class="product-info">#}
+                            {#                                            <h6 class="product-title">#}
+                            {#                                                <a href="">#}
+                            {#                                                    {{ pro.title }}#}
+                            {#                                                </a>#}
+                            {#                                            </h6>#}
+                            {#                                            <p class="product-price">#}
+                            {#                                                {{ pro.price }} so'm#}
+                            {#                                            </p>#}
+                            {#                                        </div>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            {#                            {% endfor %}#}
 
 
                         </div>

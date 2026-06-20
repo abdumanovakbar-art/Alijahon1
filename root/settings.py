@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qg3-u$f*(yzcn+jum20d(=ut2p9+ga4!&olu)7sq2hd(=ly#8%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -73,19 +73,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'root.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'Faxa2000',
+        'PASSWORD': '1',
         'HOST': 'localhost',
         'PORT': '5432',
         'OPTIONS': {
-            'client_encoding': 'UTF8',  # Shu qatorni qo'shing
+            'client_encoding': 'UTF8',
         }
     }
 }
@@ -122,8 +119,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR , 'static')

@@ -4,737 +4,750 @@
 {% block admin_body %}
 
 
-        <link rel="icon" type="image/png" href="https://alijahon.uz/static/apps/img/fav-icon.png">
-        <link href="./market_files/bootstrap.min.css" rel="stylesheet">
-        <link href="./market_files/all.min.css" rel="stylesheet">
-        <link href="./market_files/icofont.min.css" rel="stylesheet">
-        <link href="./market_files/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="./market_files/owl.carousel.css">
-        <link rel="stylesheet" href="./market_files/owl.theme.css">
-        <link rel="manifest" href="https://alijahon.uz/static/apps/json/manifest.json">
+    <link rel="icon" type="image/png" href="https://alijahon.uz/static/apps/img/fav-icon.png">
+    <link href="./market_files/bootstrap.min.css" rel="stylesheet">
+    <link href="./market_files/all.min.css" rel="stylesheet">
+    <link href="./market_files/icofont.min.css" rel="stylesheet">
+    <link href="./market_files/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./market_files/owl.carousel.css">
+    <link rel="stylesheet" href="./market_files/owl.theme.css">
+    <link rel="manifest" href="https://alijahon.uz/static/apps/json/manifest.json">
 
-        <style>
-            :root {
-                --primary-color: #4f46e5;
-                --primary-dark: #4338ca;
-                --primary-light: #818cf8;
-                --success-color: #10b981;
-                --warning-color: #f59e0b;
-                --danger-color: #ef4444;
-                --info-color: #3b82f6;
-                --dark-bg: #1e293b;
-                --light-bg: #f8fafc;
-                --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            }
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #818cf8;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #3b82f6;
+            --dark-bg: #1e293b;
+            --light-bg: #f8fafc;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
 
-            * {
-                transition: all 0.3s ease;
-            }
+        * {
+            transition: all 0.3s ease;
+        }
 
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-                background: #f8fafc;
-                min-height: 100vh;
-            }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
 
+        .container {
+            max-width: 1400px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-4px);
+        }
+
+        .btn {
+            border-radius: 12px;
+            padding: 10px 24px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            padding: 12px 16px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .table {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
             .container {
-                max-width: 1400px;
+                padding: 10px;
             }
 
             .card {
-                border: none;
-                border-radius: 16px;
-                box-shadow: var(--card-shadow);
-                overflow: hidden;
-            }
-
-            .card:hover {
-                box-shadow: var(--card-shadow-hover);
-                transform: translateY(-4px);
+                margin-bottom: 20px;
             }
 
             .btn {
-                border-radius: 12px;
-                padding: 10px 24px;
-                font-weight: 600;
-                border: none;
-                transition: all 0.3s ease;
-            }
-
-            .btn-primary {
-                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-                color: white;
-            }
-
-            .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
-            }
-
-            .form-control, .form-select {
-                border-radius: 12px;
-                border: 2px solid #e2e8f0;
-                padding: 12px 16px;
-            }
-
-            .form-control:focus, .form-select:focus {
-                border-color: var(--primary-color);
-                box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-            }
-
-            .badge {
-                padding: 6px 14px;
-                border-radius: 20px;
-                font-weight: 600;
+                width: 100%;
+                margin-bottom: 10px;
             }
 
             .table {
-                border-radius: 12px;
-                overflow: hidden;
+                font-size: 12px;
             }
 
-            .table thead {
-                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-                color: white;
+            .col-md-3, .col-md-9 {
+                padding: 0 10px;
             }
-
-            @media (max-width: 768px) {
-                .container {
-                    padding: 10px;
-                }
-
-                .card {
-                    margin-bottom: 20px;
-                }
-
-                .btn {
-                    width: 100%;
-                    margin-bottom: 10px;
-                }
-
-                .table {
-                    font-size: 12px;
-                }
-
-                .col-md-3, .col-md-9 {
-                    padding: 0 10px;
-                }
-            }
-        </style>
+        }
+    </style>
 
 
 
-        <style>
+    <style>
+        .market-container {
+            padding: 30px 0;
+        }
+
+        .market-header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .market-header h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .category-tabs::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .category-tabs::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .category-btn {
+            padding: 10px 24px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #64748b;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+        }
+
+        .search-box-modern {
+            position: relative;
+        }
+
+        .search-box-modern input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 30px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box-modern input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        .search-box-modern button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-box-modern button:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .product-card-modern {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card-modern:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card-modern:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .product-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-title a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .product-title a:hover {
+            color: #667eea;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 16px;
+        }
+
+        .product-details {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+            flex: 1;
+        }
+
+        .product-details li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .product-details li:last-child {
+            border-bottom: none;
+        }
+
+        .product-details li span:first-child {
+            color: #64748b;
+        }
+
+        .product-details li strong {
+            color: #1e293b;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+            flex-direction: column;
+        }
+
+        .product-btn {
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .product-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .product-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .product-btn.secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .product-btn.secondary:hover {
+            background: #e2e8f0;
+            color: #334155;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
             .market-container {
-                padding: 30px 0;
+                padding: 15px 0;
             }
 
             .market-header {
-                background: white;
-                border-radius: 20px;
-                padding: 30px;
-                margin-bottom: 30px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+                padding: 20px;
+                margin-bottom: 20px;
             }
 
             .market-header h3 {
-                font-size: 28px;
-                font-weight: 700;
-                color: #1e293b;
-                margin-bottom: 24px;
-                text-align: center;
+                font-size: 22px;
             }
 
             .category-tabs {
-                display: flex;
-                gap: 10px;
-                overflow-x: auto;
-                padding: 10px 0;
-                margin-bottom: 20px;
-                scrollbar-width: thin;
-            }
-
-            .category-tabs::-webkit-scrollbar {
-                height: 6px;
-            }
-
-            .category-tabs::-webkit-scrollbar-track {
-                background: #f1f5f9;
-                border-radius: 10px;
-            }
-
-            .category-tabs::-webkit-scrollbar-thumb {
-                background: #667eea;
-                border-radius: 10px;
+                gap: 8px;
             }
 
             .category-btn {
-                padding: 10px 24px;
-                border: 2px solid #e2e8f0;
-                background: white;
-                border-radius: 30px;
-                font-weight: 600;
-                color: #64748b;
-                white-space: nowrap;
-                transition: all 0.3s ease;
-                text-decoration: none;
-                display: inline-block;
-            }
-
-            .category-btn:hover,
-            .category-btn.active {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                border-color: transparent;
-                transform: translateY(-2px);
-                box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.4);
-                text-decoration: none;
-            }
-
-            .search-box-modern {
-                position: relative;
-            }
-
-            .search-box-modern input {
-                width: 100%;
-                padding: 14px 50px 14px 20px;
-                border: 2px solid #e2e8f0;
-                border-radius: 30px;
-                font-size: 15px;
-                transition: all 0.3s ease;
-            }
-
-            .search-box-modern input:focus {
-                border-color: #667eea;
-                box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-                outline: none;
-            }
-
-            .search-box-modern button {
-                position: absolute;
-                right: 5px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                border: none;
-                color: white;
-                width: 45px;
-                height: 45px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-
-            .search-box-modern button:hover {
-                transform: translateY(-50%) scale(1.1);
-            }
-
-            .product-card-modern {
-                background: white;
-                border-radius: 20px;
-                overflow: hidden;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                transition: all 0.3s ease;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .product-card-modern:hover {
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-                transform: translateY(-8px);
+                padding: 8px 16px;
+                font-size: 13px;
             }
 
             .product-image {
-                position: relative;
-                overflow: hidden;
-                height: 220px;
-            }
-
-            .product-image img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                transition: transform 0.3s ease;
-            }
-
-            .product-card-modern:hover .product-image img {
-                transform: scale(1.1);
-            }
-
-            .product-badge {
-                position: absolute;
-                top: 12px;
-                right: 12px;
-                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-                color: white;
-                padding: 6px 14px;
-                border-radius: 20px;
-                font-size: 12px;
-                font-weight: 600;
+                height: 180px;
             }
 
             .product-body {
-                padding: 20px;
-                flex: 1;
-                display: flex;
-                flex-direction: column;
+                padding: 16px;
+            }
+        }
+    </style>
+
+
+
+
+
+
+    <style>
+        .sidebar-modern {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+        }
+
+        .user-profile-modern {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .user-profile-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+
+        .user-avatar-modern {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-info-modern {
+            color: white;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-info-modern h6 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .user-info-modern p {
+            font-size: 13px;
+            opacity: 0.95;
+            margin-bottom: 4px;
+        }
+
+        .nav-modern {
+            padding: 10px 0;
+        }
+
+        .nav-modern .nav-item {
+            margin: 0;
+        }
+
+        .nav-modern .nav-link {
+            color: #64748b;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 15px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-modern .nav-link i {
+            font-size: 20px;
+            margin-right: 12px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-modern .nav-link:hover,
+        .nav-modern .nav-link.active {
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
+            color: #667eea;
+            border-left-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-modern {
+                margin-bottom: 20px;
+                position: static;
             }
 
-            .product-title {
+            .user-profile-modern {
+                padding: 20px 15px;
+            }
+
+            .user-avatar-modern {
+                width: 80px;
+                height: 80px;
+            }
+
+            .user-info-modern h6 {
                 font-size: 16px;
-                font-weight: 600;
-                color: #1e293b;
-                margin-bottom: 12px;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
             }
 
-            .product-title a {
-                color: #1e293b;
-                text-decoration: none;
+            .user-info-modern p {
+                font-size: 12px;
             }
 
-            .product-title a:hover {
-                color: #667eea;
-            }
-
-            .product-price {
-                font-size: 20px;
-                font-weight: 700;
-                color: #667eea;
-                margin-bottom: 16px;
-            }
-
-            .product-details {
-                list-style: none;
-                padding: 0;
-                margin: 0 0 16px 0;
-                flex: 1;
-            }
-
-            .product-details li {
-                padding: 8px 0;
-                border-bottom: 1px solid #f1f5f9;
-                display: flex;
-                justify-content: space-between;
-                font-size: 14px;
-            }
-
-            .product-details li:last-child {
-                border-bottom: none;
-            }
-
-            .product-details li span:first-child {
-                color: #64748b;
-            }
-
-            .product-details li strong {
-                color: #1e293b;
-            }
-
-            .product-actions {
-                display: flex;
-                gap: 8px;
-                flex-direction: column;
-            }
-
-            .product-btn {
+            .nav-modern .nav-link {
                 padding: 12px 20px;
-                border-radius: 12px;
-                border: none;
-                font-weight: 600;
                 font-size: 14px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                text-align: center;
-                text-decoration: none;
-                display: block;
             }
 
-            .product-btn.primary {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
+            .nav-modern .nav-link i {
+                font-size: 18px;
+                margin-right: 10px;
             }
+        }
+    </style>
 
-            .product-btn.primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.4);
-                color: white;
-                text-decoration: none;
-            }
-
-            .product-btn.secondary {
-                background: #f1f5f9;
-                color: #475569;
-            }
-
-            .product-btn.secondary:hover {
-                background: #e2e8f0;
-                color: #334155;
-                text-decoration: none;
-            }
-
-            @media (max-width: 768px) {
-                .market-container {
-                    padding: 15px 0;
-                }
-
-                .market-header {
-                    padding: 20px;
-                    margin-bottom: 20px;
-                }
-
-                .market-header h3 {
-                    font-size: 22px;
-                }
-
-                .category-tabs {
-                    gap: 8px;
-                }
-
-                .category-btn {
-                    padding: 8px 16px;
-                    font-size: 13px;
-                }
-
-                .product-image {
-                    height: 180px;
-                }
-
-                .product-body {
-                    padding: 16px;
-                }
-            }
-        </style>
-
-
-
-
-
-
-            <style>
-                .sidebar-modern {
-                    background: white;
-                    border-radius: 20px;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-                    overflow: hidden;
-                    position: sticky;
-                    top: 20px;
-                }
-
-                .user-profile-modern {
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    padding: 30px 20px;
-                    text-align: center;
-                    position: relative;
-                }
-
-                .user-profile-modern::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-                    opacity: 0.4;
-                }
-
-                .user-avatar-modern {
-                    width: 100px;
-                    height: 100px;
-                    border-radius: 50%;
-                    border: 4px solid white;
-                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-                    object-fit: cover;
-                    position: relative;
-                    z-index: 1;
-                }
-
-                .user-info-modern {
-                    color: white;
-                    margin-top: 15px;
-                    position: relative;
-                    z-index: 1;
-                }
-
-                .user-info-modern h6 {
-                    font-size: 18px;
-                    font-weight: 700;
-                    margin-bottom: 8px;
-                }
-
-                .user-info-modern p {
-                    font-size: 13px;
-                    opacity: 0.95;
-                    margin-bottom: 4px;
-                }
-
-                .nav-modern {
-                    padding: 10px 0;
-                }
-
-                .nav-modern .nav-item {
-                    margin: 0;
-                }
-
-                .nav-modern .nav-link {
-                    color: #64748b;
-                    padding: 14px 24px;
-                    display: flex;
-                    align-items: center;
-                    font-weight: 500;
-                    font-size: 15px;
-                    border-left: 3px solid transparent;
-                    transition: all 0.3s ease;
-                }
-
-                .nav-modern .nav-link i {
-                    font-size: 20px;
-                    margin-right: 12px;
-                    width: 24px;
-                    text-align: center;
-                }
-
-                .nav-modern .nav-link:hover,
-                .nav-modern .nav-link.active {
-                    background: linear-gradient(90deg, rgba(102, 126, 234, 0.08) 0%, transparent 100%);
-                    color: #667eea;
-                    border-left-color: #667eea;
-                }
-
-                @media (max-width: 768px) {
-                    .sidebar-modern {
-                        margin-bottom: 20px;
-                        position: static;
-                    }
-
-                    .user-profile-modern {
-                        padding: 20px 15px;
-                    }
-
-                    .user-avatar-modern {
-                        width: 80px;
-                        height: 80px;
-                    }
-
-                    .user-info-modern h6 {
-                        font-size: 16px;
-                    }
-
-                    .user-info-modern p {
-                        font-size: 12px;
-                    }
-
-                    .nav-modern .nav-link {
-                        padding: 12px 20px;
-                        font-size: 14px;
-                    }
-
-                    .nav-modern .nav-link i {
-                        font-size: 18px;
-                        margin-right: 10px;
-                    }
-                }
-            </style>
-
-            <div class="col-md-9">
-                <!-- Modal -->
-                <div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content" style="border-radius: 20px; border: none;">
-                            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 20px 20px 0 0;">
-                                <h5 class="modal-title">
-                                    <i class="icofont-link"></i> Oqim yaratish
-                                </h5>
-                                <button type="button" class="close text-white" data-dismiss="modal">
-                                    <span>×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" style="padding: 30px;">
-                                <form method="POST" class="form-class">
-                                    <input type="hidden" name="csrfmiddlewaretoken" value="8aZD61a2KcWViha9FGhMaIdKjYAMpdvKI8QcTSj7FUO4Sv0pTCmvpJrwTMPp7NRH">
-                                    <input name="product_id" type="hidden" id="hidden_product" value="">
-
-                                    <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Oqim nomi</label>
-                                        <input type="text" name="title" class="form-control" placeholder="" mt-2="Oqim uchun nom kiriting" required="" id="id_title">
-
-                                    </div>
-
-                                    <div class="form-group mb-3">
-                                        <label class="font-weight-bold">Chegirma</label>
-                                        <input type="number" name="discount" class="form-control" placeholder="" mt-2="Chegirma miqdori: {{ product.benefit }} so&#39;mgacha" id="id_discount">
-
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary w-100 mt-3" style="padding: 12px; border-radius: 12px;">
-                                        <i class="icofont-check"></i> Oqim yaratish
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+    <div class="col-md-9">
+        <!-- Modal -->
+        <div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="border-radius: 20px; border: none;">
+                    <div class="modal-header"
+                         style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 20px 20px 0 0;">
+                        <h5 class="modal-title">
+                            <i class="icofont-link"></i> Oqim yaratish
+                        </h5>
+                        <button type="button" class="close text-white" data-dismiss="modal">
+                            <span>×</span>
+                        </button>
                     </div>
-                </div>
+                    <div class="modal-body" style="padding: 30px;">
+                        <form method="POST" action="{% url 'stream_create' %}" class="form-class">
+                            {% csrf_token %}
+                            {#                                    <input type="hidden" name="csrfmiddlewaretoken" value="8aZD61a2KcWViha9FGhMaIdKjYAMpdvKI8QcTSj7FUO4Sv0pTCmvpJrwTMPp7NRH">#}
+                            <input name="product_id" type="hidden" id="hidden_product" value="">
 
-                <div class="market-header">
-                    <h3>
-                        <i class="icofont-shopping-cart"></i> Sotuvdagi Mahsulotlar
-                    </h3>
+                            <div class="form-group mb-3">
+                                <label class="font-weight-bold">Oqim nomi</label>
+                                <input type="text" name="title" class="form-control" placeholder=""
+                                       mt-2="Oqim uchun nom kiriting" required="" id="id_title">
 
-                    <div class="category-tabs">
-                        <a href="{% url 'market' %}" class="category-btn">Hammasi</a>
-                        {% for cat in cate %}
-                            <a href="{% url 'market_category' cat.id %}" class="category-btn">
-                                {{ cat.title }}
-                            </a>
-                        {% endfor %}
-                    </div>
-                    <div class="search-box-modern">
-                        <form action="https://alijahon.uz/admin_page/market" method="GET" autocomplete="off">
-                            <input id="search-input" name="q" class="search-input" type="search" placeholder="Mahsulot qidirish...">
-                            <button type="submit">
-                                <i class="icofont-search"></i>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="font-weight-bold">Chegirma</label>
+                                <input type="number" name="discount" class="form-control" placeholder=""
+                                       mt-2="Chegirma miqdori: {{ product.benefit }} so&#39;mgacha" id="id_discount">
+
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3"
+                                    style="padding: 12px; border-radius: 12px;">
+                                <i class="icofont-check"></i> Oqim yaratish
                             </button>
                         </form>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="market-header">
+            <h3>
+                <i class="icofont-shopping-cart"></i> Sotuvdagi Mahsulotlar
+            </h3>
+
+            <div class="category-tabs">
+                <a href="{% url 'market' %}" class="category-btn">Hammasi</a>
+                {% for cat in cate %}
+                    <a href="{% url 'market_category' cat.id %}" class="category-btn">
+                        {{ cat.title }}
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="search-box-modern">
+                <form action="https://alijahon.uz/admin_page/market" method="GET" autocomplete="off">
+                    <input id="search-input" name="q" class="search-input" type="search"
+                           placeholder="Mahsulot qidirish...">
+                    <button type="submit">
+                        <i class="icofont-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
 
 
-
-                <div class="row">
-                    {% for pro in products %}
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="product-card-modern">
-                                <div class="product-image">
-                                    <a href="{% url 'detail' pro.id %}">
-                                        <img src="{{ pro.image.url }}" alt="{{ pro.title }}">
-                                    </a>
-                                </div>
-                                <div class="product-body">
-                                    <div class="product-title">
-                                        <a href="{% url 'detail' pro.id %}">
-                                            {{ pro.title }}
-                                        </a>
-                                    </div>
-                                    <div class="product-price">{{ pro.price }} so'm</div>
-                                    <ul class="product-details">
-                                        <li>
-                                            <span>To'lov:</span>
-                                            <strong>{{ pro.price }} so'm</strong>
-                                        </li>
-                                        <li>
-                                            <span>Zaxirada:</span>
-                                            <strong>{{ pro.amount }} ta</strong>
-                                        </li>
-                                    </ul>
-                                    <div class="product-actions">
-                                        <button class="product-btn primary btn_open_modal"
-                                                data-toggle="modal"
-                                                data-target="#edit-profile-modal"
-                                                name="{{ pro.id }}">
-                                            <i class="icofont-link"></i> Oqim yaratish
-                                        </button>
-                                        <a href="{% url 'detail' pro.id %}"  class="product-btn secondary">
-                                            <i class="icofont-eye"></i> Batafsil
-                                        </a>
-                                    </div>
-                                </div>
+        <div class="row">
+            {% for pro in products %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card-modern">
+                        <div class="product-image">
+                            <a href="{% url 'detail' pro.id %}">
+                                <img src="{{ pro.image.url }}" alt="{{ pro.title }}">
+                            </a>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-title">
+                                <a href="{% url 'detail' pro.id %}">
+                                    {{ pro.title }}
+                                </a>
+                            </div>
+                            <div class="product-price">{{ pro.price }} so'm</div>
+                            <ul class="product-details">
+                                <li>
+                                    <span>To'lov:</span>
+                                    <strong>{{ pro.price }} so'm</strong>
+                                </li>
+                                <li>
+                                    <span>Zaxirada:</span>
+                                    <strong>{{ pro.amount }} ta</strong>
+                                </li>
+                            </ul>
+                            <div class="product-actions">
+                                <button class="product-btn primary btn_open_modal"
+                                        data-toggle="modal"
+                                        data-target="#edit-profile-modal"
+                                        name="{{ pro.id }}">
+                                    <i class="icofont-link"></i> Oqim yaratish
+                                </button>
+                                <a href="{% url 'detail' pro.id %}" class="product-btn secondary">
+                                    <i class="icofont-eye"></i> Batafsil
+                                </a>
                             </div>
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
+            {% endfor %}
+        </div>
 
 
-                <div class="mt-4">
+        <div class="mt-4">
 
 
-                    <style>
-                        .pagination-modern {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            gap: 8px;
-                            flex-wrap: wrap;
-                            padding: 20px 0;
-                        }
+            <style>
+                .pagination-modern {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 8px;
+                    flex-wrap: wrap;
+                    padding: 20px 0;
+                }
 
-                        .pagination-modern .page-item {
-                            list-style: none;
-                        }
+                .pagination-modern .page-item {
+                    list-style: none;
+                }
 
-                        .pagination-modern .page-link {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            min-width: 42px;
-                            height: 42px;
-                            padding: 0 16px;
-                            background: white;
-                            border: 2px solid #e2e8f0;
-                            border-radius: 12px;
-                            color: #475569;
-                            font-weight: 600;
-                            text-decoration: none;
-                            transition: all 0.3s ease;
-                        }
+                .pagination-modern .page-link {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 42px;
+                    height: 42px;
+                    padding: 0 16px;
+                    background: white;
+                    border: 2px solid #e2e8f0;
+                    border-radius: 12px;
+                    color: #475569;
+                    font-weight: 600;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                }
 
-                        .pagination-modern .page-link:hover {
-                            background: #f8fafc;
-                            border-color: #667eea;
-                            color: #667eea;
-                            transform: translateY(-2px);
-                            box-shadow: 0 4px 6px -1px rgba(102, 126, 234, 0.2);
-                        }
+                .pagination-modern .page-link:hover {
+                    background: #f8fafc;
+                    border-color: #667eea;
+                    color: #667eea;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 6px -1px rgba(102, 126, 234, 0.2);
+                }
 
-                        .pagination-modern .page-item.active .page-link {
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                            border-color: transparent;
-                            color: white;
-                            cursor: default;
-                            pointer-events: none;
-                        }
+                .pagination-modern .page-item.active .page-link {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    border-color: transparent;
+                    color: white;
+                    cursor: default;
+                    pointer-events: none;
+                }
 
-                        .pagination-modern .page-item.disabled .page-link {
-                            opacity: 0.5;
-                            cursor: not-allowed;
-                            pointer-events: none;
-                        }
+                .pagination-modern .page-item.disabled .page-link {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    pointer-events: none;
+                }
 
-                        .pagination-modern .page-link.prev-next {
-                            padding: 0 20px;
-                        }
+                .pagination-modern .page-link.prev-next {
+                    padding: 0 20px;
+                }
 
-                        .pagination-modern .page-link i {
-                            font-size: 16px;
-                        }
+                .pagination-modern .page-link i {
+                    font-size: 16px;
+                }
 
-                        @media (max-width: 768px) {
-                            .pagination-modern {
-                                gap: 6px;
-                                padding: 15px 0;
-                            }
+                @media (max-width: 768px) {
+                    .pagination-modern {
+                        gap: 6px;
+                        padding: 15px 0;
+                    }
 
-                            .pagination-modern .page-link {
-                                min-width: 38px;
-                                height: 38px;
-                                padding: 0 12px;
-                                font-size: 14px;
-                            }
+                    .pagination-modern .page-link {
+                        min-width: 38px;
+                        height: 38px;
+                        padding: 0 12px;
+                        font-size: 14px;
+                    }
 
-                            .pagination-modern .page-link.prev-next {
-                                padding: 0 14px;
-                            }
-                        }
-                    </style>
-                </div>
+                    .pagination-modern .page-link.prev-next {
+                        padding: 0 14px;
+                    }
+                }
+            </style>
+        </div>
 
-            </div>
+    </div>
+    <script>
+        document.querySelectorAll('.btn_open_modal').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var productId = this.getAttribute('name');
+                document.getElementById('hidden_product').value = productId;
+            });
+        });
+    </script>
 {% endblock %}

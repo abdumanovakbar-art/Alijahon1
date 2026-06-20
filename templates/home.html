@@ -1,7 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-
 {% block body %}
     <div class="hero-section">
         <div class="container-fluid px-0">
@@ -30,7 +29,7 @@
                         <a href="{% url 'category' c.id %}" class=" category-card">
                             <div class="category-image-wrapper">
                                 <img class="category-image"
-                                     src="{{ c.photo.url }}"
+                                     src="{{ c.image.url }}"
                                      alt="{{ c.title }}">
                             </div>
                             <h6 class="category-title">{{ c.title }}</h6>
@@ -54,36 +53,71 @@
             </div>
 
             <div class="row g-4">
-                {% for pro in pro_data %}
-                    <div class="owl-item" style="width: 346px;">
-                        <div class="item">
+                <div class="owl-item" style="width: 346px;">
+                <div class="item">
+                    {% for pro in pro_data %}
                             <div class="product-card">
-                                <a href="{% url 'detail' pro.id %}"
-                                   class="product-image-link">
+                                <a href="{% url 'detail' pro.id %}" class="product-image-link">
                                     <div class="product-image-wrapper">
-                                        <img class="product-image" src="{{ pro.image.url }}"
+                                        <img class="product-image"
+                                             src="{{ pro.image.url }}"
                                              alt="{{ pro.title }}"
                                              loading="lazy">
                                     </div>
                                 </a>
+
                                 <div class="product-info">
                                     <h6 class="product-title">
-                                        <a href="">
+                                        <a href="{% url 'detail' pro.id %}">
                                             {{ pro.title }}
                                         </a>
                                     </h6>
-                                    <p class="product-price">{{ pro.price }} so'm</p>
+
+                                    <p class="product-price">
+                                        {{ pro.price }} so'm
+                                    </p>
+
+                                    {% if pro.id in liked_products %}
+                                        <span class="text-danger">
+                    <i class="icofont-heart"></i> Sevimli
+                </span>
+                                    {% else %}
+                                        <span class="text-muted">
+                    <i class="icofont-heart-alt"></i> Saqlash
+                </span>
+                                    {% endif %}
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
-
+                    {% endfor %}
+                </div>
+                    {#                {% for pro in pro_data %}#}
+                    {#                    <div class="owl-item" style="width: 346px;">#}
+                    {#                        <div class="item">#}
+                    {#                            <div class="product-card">#}
+                    {#                                <a href="{% url 'detail' pro.id %}"#}
+                    {#                                   class="product-image-link">#}
+                    {#                                    <div class="product-image-wrapper">#}
+                    {#                                        <img class="product-image" src="{{ pro.image.url }}"#}
+                    {#                                             alt="{{ pro.title }}"#}
+                    {#                                             loading="lazy">#}
+                    {#                                    </div>#}
+                    {#                                </a>#}
+                    {#                                <div class="product-info">#}
+                    {#                                    <h6 class="product-title">#}
+                    {#                                        <a href="">#}
+                    {#                                            {{ pro.title }}#}
+                    {#                                        </a>#}
+                    {#                                    </h6>#}
+                    {#                                    <p class="product-price">{{ pro.price }} so'm</p>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                    {#                {% endfor %}#}
+                </div>
             </div>
         </div>
     </section>
-
     <section class="products-section py-5">
         <div class="container">
             <div class="section-header mb-4">
@@ -119,15 +153,9 @@
                         </div>
                     </div>
                 {% endfor %}
-
-
             </div>
         </div>
     </section>
-
-
-
-
 {% endblock %}
 
 

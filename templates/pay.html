@@ -735,10 +735,9 @@
                 <div class="balance-card">
                     <i class="icofont-wallet balance-icon"></i>
                     <h5>Mening Hisobim</h5>
-                    <div class="balance-amount">0 so'm</div>
+                    <div class="balance-amount">{{ request.user.balance }}</div>
+
                 </div>
-
-
             </div>
 
             <div class="col-lg-6">
@@ -759,18 +758,20 @@
                     </div>
 
                     <div class="tab-content-panel" id="money-panel">
-                        <form class="payment-form" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
-
+                        <form class="payment-form" method="post" action="{% url 'pay' %}">
+                            {% csrf_token %}
                             <div class="form-group-modern">
                                 <label>Karta raqami</label>
-                                <input type="text" name="card_number" class="form-control" placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required="" id="id_card_number">
+                                <input type="text" name="card_number" class="form-control"
+                                       placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required=""
+                                       id="id_card_number">
 
                             </div>
 
                             <div class="form-group-modern">
                                 <label>Amount</label>
-                                <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting" required="" id="id_amount">
+                                <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting"
+                                       required="" id="id_amount">
 
                             </div>
 
@@ -793,17 +794,21 @@
 
                     <div class="tab-content-panel" id="coin-panel" style="display: none;">
                         <form class="payment-form" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
+                            <input type="hidden" name="csrfmiddlewaretoken"
+                                   value="YPiJMdOEbUJkIF2tLgsqwnIHxX9VZYOgyN9iz4XJ6CBtiTSJZcx9LoWt7LoyHyad">
 
                             <div class="form-group-modern">
                                 <label>Karta raqami</label>
-                                <input type="text" name="card_number" class="form-control" placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required="" id="id_card_number">
+                                <input type="text" name="card_number" class="form-control"
+                                       placeholder="Karta raqamini kiriting" maxlength="16" minlength="15" required=""
+                                       id="id_card_number">
 
                             </div>
 
                             <div class="form-group-modern">
                                 <label>Amount</label>
-                                <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting" required="" id="id_amount">
+                                <input type="number" name="amount" class="form-control" placeholder="Miqdorini kiriting"
+                                       required="" id="id_amount">
 
                             </div>
 
@@ -833,7 +838,7 @@
                     <i class="icofont-history"></i>
                     <span>O'tkazmalar Tarixi</span>
                 </h5>
-                <span class="transactions-count">0 ta</span>
+                <span class="transactions-count">{{ transactions.count }}</span>
             </div>
 
             <div class="table-responsive">
@@ -848,19 +853,34 @@
                     </tr>
                     </thead>
                     <tbody>
-
-                    <tr>
-                        <td colspan="5" style="text-align: center; padding: 40px; color: #64748b;">
-                            <i class="icofont-history" style="font-size: 48px; display: block; margin-bottom: 16px;"></i>
-                            <strong>Hozircha pul yechish so'rovlari mavjud emas</strong>
-                        </td>
-                    </tr>
-
+                    {% for t in transactions %}
+                        <tr>
+                            <td>{{ t.created_at|date:"d.m.Y" }}</td>
+                            <td>{{ t.card_number }}</td>
+                            <td>{{ t.amount }} so'm</td>
+                            <td>
+                                {% if t.status == 'pending' %}
+                                    <span class="status-badge-modern warning">Kutilmoqda</span>
+                                {% elif t.status == 'success' %}
+                                    <span class="status-badge-modern success">Tasdiqlandi</span>
+                                {% else %}
+                                    <span class="status-badge-modern danger">Rad etildi</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ t.get_type_display }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: #64748b;">
+                                <i class="icofont-history"
+                                   style="font-size: 48px; display: block; margin-bottom: 16px;"></i>
+                                <strong>Hozircha pul yechish so'rovlari mavjud emas</strong>
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
-
-
         </div>
     </div>
     <script>
@@ -903,7 +923,5 @@
             });
         });
     </script>
-
-
 
 {% endblock %}

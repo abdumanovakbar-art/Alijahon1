@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+{% block body %}
+    {% load static %}
+
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h4 class="mb-4">❤ Mening sevimlilarim</h4>
+            <div class="row">
+                {% for item in wishlists %}
+                    <div class="col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ item.product.image.url }}" class="card-img-top"
+                                 style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h6 class="card-title">{{ item.product.title }}</h6>
+                                <p class="text-danger font-weight-bold">{{ item.product.price }} so'm</p>
+                                <div class="d-flex justify-content-between">
+                                    <a href="{% url 'detail' item.product.id %}"
+                                       class="btn btn-primary btn-sm">Ko'rish</a>
+                                    <form method="post" action="{% url 'wishlist_add' item.product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            🗑 O'chirish
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12 text-center py-5">
+                        <i class="icofont-heart" style="font-size: 60px; color: #ddd;"></i>
+                        <p class="mt-3 text-muted">Sevimlilar ro'yxati bo'sh</p>
+                        <a href="{% url 'home' %}" class="btn btn-primary">Xarid qilish</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

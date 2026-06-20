@@ -25,11 +25,14 @@
             </div>
             <div class="api-key-section">
                 <div class="label">API Key</div>
+
                 <div class="api-key-content">
                     <div class="api-key-wrapper">
                         <div class="key" id="apiKeyDisplay" style="display: block;">••••••••••••••••••••••••••••</div>
-                        <div class="key" id="apiKeyActual" style="display: none;">hNwnLQweTY0FIOFja4Ry6paFLEUUMJuX</div>
-                        <i class="icofont-eye toggle-eye" id="toggleIcon" onclick="toggleApiKey()" title="Ko'rsatish/Yashirish"></i>
+                        <div class="key" id="apiKeyActual" style="display: none;">{{ user.api_key }}</div>
+                        {# ← shu #}
+                        <i class="icofont-eye toggle-eye" id="toggleIcon" onclick="toggleApiKey()"
+                           title="Ko'rsatish/Yashirish"></i>
                     </div>
                     <button class="btn btn-primary btn-sm" onclick="copyApiKey()">
                         <i class="icofont-copy"></i> Nusxa olish
@@ -112,4 +115,30 @@
             </div>
         </div>
     </div>
+    <script>
+function toggleApiKey() {
+    const display = document.getElementById('apiKeyDisplay');
+    const actual = document.getElementById('apiKeyActual');
+    const icon = document.getElementById('toggleIcon');
+
+    if (actual.style.display === 'none') {
+        display.style.display = 'none';
+        actual.style.display = 'block';
+        icon.classList.remove('icofont-eye');
+        icon.classList.add('icofont-eye-blocked');
+    } else {
+        display.style.display = 'block';
+        actual.style.display = 'none';
+        icon.classList.remove('icofont-eye-blocked');
+        icon.classList.add('icofont-eye');
+    }
+}
+
+function copyApiKey() {
+    const actual = document.getElementById('apiKeyActual');
+    navigator.clipboard.writeText(actual.innerText).then(() => {
+        alert('API Key nusxa olindi! ✅');
+    });
+}
+</script>
 {% endblock %}

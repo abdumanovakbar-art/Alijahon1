@@ -1,40 +1,57 @@
 import re
-
-from django.contrib.auth import forms, login
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.hashers import check_password, make_password
-from django.core.exceptions import ValidationError
-from django.db.models import Model
-from django.forms import ModelForm, CharField
-
-
-from apps.models import User
+from django.contrib.auth.hashers import make_password
+from django.forms import ModelForm, Form
+from django.forms.fields import CharField, IntegerField, ChoiceField
+from django.views.generic import FormView
+from pydantic_core import ValidationError
+from apps.models import User, Transaction
 
 
-class LoginForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request')
-        super().__init__(*args, **kwargs)
-
-
+class UserModel(ModelForm):
+    confirm_password = CharField(max_length=50)
 
     class Meta:
         model = User
-        fields = ['phone_number', 'password']
+        fields = ['phone_number', 'password', 'confirm_password']
 
-    def clean(self):
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        if len(password) < 5:
+            raise ValidationError('Password uzunligi yetarli emas !')
+        hash_passeord = make_password(password)
+        return hash_passeord
+
+    def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
         phone_number = re.sub(r'\D', '', phone_number)
+        return phone_number
 
-        password = self.cleaned_data['password']
+    def clean_confirm_password(self):
+        confirm_password = self.cleaned_data['confirm_password']
+        password = self.data['password']
+        if confirm_password != password:
+            raise ValidationError('Parol xato!')
 
-        user = User.objects.filter(phone_number=phone_number).first()
-        if user is None:
-            raise ValidationError("Telefon raqam topilmadi")
-        if not check_password(password, user.password):
-            raise ValidationError("Parol xato kiritildi")
-        login(self.request, user)
-        return self.cleaned_data
+
+
+class PayForm(ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ['card_number', 'amount', 'type']
+
+    def clean_amount(self):
+        amount = self.cleaned_data.get('amount')
+        if amount is not None and amount <= 0:
+            raise ValidationError("Summa 0 dan katta bo'lishi kerak!")
+        return amount
+
+
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'telegram_id', 'description' , ]
+
 
 
 
@@ -61,3 +78,4 @@ class RegistrationForm(ModelForm):
         password = self.data['password']
         if conf_password != password:
             raise Exception('Confirm password xato kiritilgan!')
+

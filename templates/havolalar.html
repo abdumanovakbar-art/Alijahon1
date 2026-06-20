@@ -1,0 +1,90 @@
+{% extends 'base/admin_page_base.html' %}
+
+{% block admin_body %}
+    <div class="col-md-9">
+        <div class="urls-header">
+            <h3>
+                <i class="icofont-link"></i> Mening Havolalarim
+            </h3>
+        </div>
+
+
+        <form method="get" class="search-bar">
+            <input type="text" name="q" value="" placeholder="Oqim nomi yoki ID bo'yicha qidirish...">
+            <button type="submit"><i class="icofont-search-1"></i> Qidirish</button>
+        </form>
+
+        {% for stream in streams %}
+
+            {% if stream %}
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="stream-card">
+                        <div class="stream-header">
+                            <h5 class="stream-title">
+
+                                {{ stream.title }}
+
+                            </h5>
+
+                            <span class="stream-benefit">-{{ stream.discount }}</span>
+                            <form action="{% url 'delete' stream.pk %}" method="post">
+                                {% csrf_token %}
+                                <button class="delete-btn">
+                                    <i class="icofont-trash"></i>
+                                </button>
+                            </form>
+
+                        </div>
+
+                        <div class="stream-body">
+                            <div class="link-input-group">
+                                <input type="text" value="http://127.0.0.1:8000/oqim/{{ stream.id }}" readonly=""
+                                       class="link-input ref-link-114302">
+                            </div>
+
+                            <div class="action-buttons">
+                                <button class="action-btn copy" onclick="copyLink(114302)">
+                                    <i class="icofont-copy"></i>
+                                    <span>Nusxa olish</span>
+                                </button>
+                                <a href="/oqim/{{ stream.id }}" target="_blank" class="action-btn view">
+                                    <i class="icofont-external-link"></i>
+                                    <span>Ko'rish</span>
+                                </a>
+                                <a href="https://t.me/AlijahonBot?start=order_{{ stream.id }}" target="_blank"
+                                   class="action-btn telegram">
+                                    <i class="icofont-telegram"></i>
+                                    <span>Telegram</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% else %}
+                <div class="empty-state">
+                    <i class="icofont-link"></i>
+                    <h4>Hozircha havolalar mavjud emas</h4>
+                    <p class="text-muted">Birinchi oqimingizni yarating</p>
+                </div>
+
+
+
+                <div class="pagination-wrap">
+
+                    <span class="current">1</span>
+
+                </div>
+
+                </div>
+
+            {% endif %}
+
+
+        {% endfor %}
+
+
+
+
+{% endblock %}

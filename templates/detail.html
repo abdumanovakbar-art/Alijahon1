@@ -1,6 +1,4 @@
 {% extends 'base/base.html' %}
-
-
 {% block body %}
     {% load static %}
     <meta name="author" content="">
@@ -44,9 +42,8 @@
                             <div class="clearfix"></div>
 
                             <div class="product-variation">
-                                <form method="post" id="order-form">
-                                    <input type="hidden" name="csrfmiddlewaretoken"
-                                           value="QSTAv96Sapk6c5GGNSVkvreQr4w5koGqNXR35mXV5TKUK2IL0xmeEdGhcxtdrBU7">
+                                <form method="post" action="{% url 'order_create' data.id %}" id="order-form">
+                                    {% csrf_token %}
                                     <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
                                     <div class="controls">
                                         <label>Ism <span class="text-danger">*</span></label>

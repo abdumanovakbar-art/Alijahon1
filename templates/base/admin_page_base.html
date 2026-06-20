@@ -4111,9 +4111,9 @@
                     <div class="user-profile-modern">
                         <img class="user-avatar-modern" src="/media/img/nouser.png" alt="">
                         <div class="user-info-modern">
-                            <h6></h6>
-                            <p>+998950989950</p>
-                            <p></p>
+                            <h6>{{ request.user.first_name }} {{ request.user.last_name }}</h6>
+                            <p>{{ request.user.phone_number }}</p>
+                            <p>{{ request.user.description }}</p>
                         </div>
                     </div>
                     <ul class="nav nav-modern flex-column" id="myTab" role="tablist">
@@ -4161,6 +4161,14 @@
                                 <span>To'lov</span>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link " href="{% url 'wishlist' %}">
+                                <i class="icofont-heart"></i>
+                                <span>Sevimlilar</span>
+                            </a>
+                        <li>
+
                         <li class="nav-item">
                             <a class="nav-link " href="{% url 'referal' %}">
                                 <i class="icofont-users-alt-4"></i>
