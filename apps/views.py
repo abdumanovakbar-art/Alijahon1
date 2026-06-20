@@ -517,3 +517,5 @@ def wishlist_add(request, pk):
 def wishlist_list(request):
     wishlists = WishList.objects.filter(user=request.user)
     return render(request, 'wishlist.html', {'wishlists': wishlists})
+
+
